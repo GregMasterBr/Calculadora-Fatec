@@ -7,10 +7,12 @@ from django.contrib.messages import constants
 # Create your views here.
 
 def home(request):
-   if request.method == "POST":
-        nome = request.POST.get("nome")
-        return render(request,'index.html',{'nome':nome})
-   return render(request,'index.html')
+    fatecs = ['Fatec Sorocaba', 'Fatec São Roque' , 'Fatec São Paulo', 'Fatec Itu', 'Fatec Carapicuíba']
+    #fatecs = []
+    if request.method == "POST":
+            nome = request.POST.get("nome")
+            return render(request,'index.html',{'nome':nome,'fatecs':fatecs})
+    return render(request,'index.html',{'fatecs':fatecs})
 
 def contato(request):
     return redirect('https://wa.me/5515981057742')
