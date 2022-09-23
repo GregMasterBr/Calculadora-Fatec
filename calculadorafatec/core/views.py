@@ -7,10 +7,14 @@ from django.contrib.messages import constants
 # Create your views here.
 
 def home(request):
-    return render(request,'index.html')    
-    return HttpResponse('Seja bem-vindo a HOME')
+   if request.method == "POST":
+        nome = request.POST.get("nome")
+        return render(request,'index.html',{'nome':nome})
+   return render(request,'index.html')
 
+def contato(request):
+    return redirect('https://wa.me/5515981057742')
 
 def logout(request):
     request.session.flush()
-    return redirect(reverse('login'))    
+    return redirect(reverse('home'))    
