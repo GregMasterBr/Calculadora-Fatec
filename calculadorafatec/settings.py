@@ -38,12 +38,19 @@ DEFAULT_FROM_EMAIL='calculadorafatec+suporte@gmail.com'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
     'django.contrib.messages',
     'calculadorafatec.core',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
 
 ROOT_URLCONF = 'calculadorafatec.urls'
 
@@ -144,3 +153,6 @@ MESSAGE_TAGS = {
     constants.INFO: 'alert-info',
     constants.WARNING: 'alert-warning',
 }
+
+#Email Configuration
+EMAIL_BACKEND= 'django.core.mail.backends.console.EmailBackend'
