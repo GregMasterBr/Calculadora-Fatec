@@ -1,0 +1,191 @@
+import requests
+from bs4 import BeautifulSoup as bs
+import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.support.ui import Select
+import time
+from tqdm import tqdm
+
+
+def salvandoDadosVestibularDFtoCSV(df_,nome_arq,path='ds'):
+    df_.to_csv(f'{path}/{nome_arq}.csv', sep=';',index=False)
+
+# precisa deixar global
+def urlListaClassificacaoVestibular(url):
+    driver = webdriver.Chrome()
+    return driver.get(url)
+
+def popularSelect(driver,id_Xpath):
+    return  Select(driver.find_element_by_id(f'{id_Xpath}'))
+
+def criarDicionario(select_,fields):
+    lista_ = [] 
+    for c in range(len (select_.options)):
+        if 'Selecione...' not in select_.options[c].text:
+            #key_ = int(select_.options[c].get_attribute("value"))
+            key_= (int(select_.options[c].get_attribute("value")) if select_.options[c].get_attribute("value").isdigit() == True  else c)
+            value_= select_.options[c].text
+            lista_.append({fields[0]:key_,fields[1]:value_})
+    return lista_
+
+def criarDataFrame(l):
+     return pd.DataFrame(l)
+    
+def buscarCursosPopular(url_cursos):
+    rCurso = requests.get(url_cursos)
+    soupCurso = bs(rCurso.content)    
+    divCursos = soupCurso.find(id = "cursos")
+    lista_links=divCursos.find_all("a")
+    lista_ = [{'id':245,'curso':'Gestão Empresarial - EaD'}]
+    
+    for c in range (len(lista_links)):
+        key = int((divCursos.find_all('a')[c]['href']).split("=")[1])
+        value= divCursos.find_all("a")[c].get_text()
+        lista_.append({'id':key,'curso':value})
+        
+    return salvandoDadosVestibularDFtoCSV(criarDataFrame(lista_),'listaCursos')
+
+def ajustarNota(detalhe_nota):
+    return detalhe_nota.text.upper().split(' ')[-6]
+
+def curso_periodo(txt):
+    #recebe uma string, faz uma lógica para separar em duas partes. Devolvendo um array de 2 itens. O índice 0 é o curso e o outro o período.
+    return (txt.replace(")", "")).split('(')
+
+
+	
+classificacao_geral_vest_fatec = webdriver.Chrome()
+classificacao_geral_vest_fatec.get("https://www.vestibularfatec.com.br/classificacao/fatec.asp")
+
+# não precisa disso agora.
+selectFatecs = Select(classificacao_geral_vest_fatec.find_element_by_id('CodFatec'))
+listaFatecs = criarDicionario(selectFatecs,['id','fatec'])
+dfFatec = criarDataFrame(listaFatecs)
+
+
+buscarCursosPopular('https://www.vestibularfatec.com.br/unidades-cursos/?q=')
+dfCursos = pd.read_csv('ds/listaCursos.csv',sep=';')
+
+resultado_vestibular_da_fatec = []
+resultado_vestibular_da_fatec2 = [] #Organiza cada fatec em uma array.
+
+
+'''
+lista_info_vestibular_fatec = {
+    'cod_curso':'' ,
+    'nome_curso':'',
+    'cod_instituicao':'',
+    'instituicao':'',
+    'ano':'', 
+    'semestre':'',
+    'periodo':'',
+    'qtde_vagas':'',
+    'qtde_inscrito':'',
+    'demanda':'',
+    'nota_corte':'',
+    'nota_maxima':''
+}
+'''
+#inf
+'''
+cod_curso-> Sitema da Calculadora
+cod_instituicao -> Sistema da Calculadora
+ano -> ano do vestibular
+semeste-> semestre do vestibular
+periodo -> da busca (UPPER())
+ROBO DEMANDA
+qtde_vagas-> preencher através de outro robo
+qtde_inscrito->
+demanda-> realizar o cálculo
+nota_corte -> nota min
+nota_maxima -> nota max
+
+
+'''
+
+'''
+SERÁ FEITO UMA NAVEGAÇÃO SEGUINDO A SEGUINTE REGRA:
+    -> OS DATAFRAMES ESTÃO POPULADOS
+    A CADA FATEC DA LISTA, VISITAR A PÁGINA DOS CURSOS QUE ELA OFERECERAM. ENTRAR EM CADA UMA DAS OPÇÕES E IR PARA A TELA DE VERIFICAR LISTA DE CHAMADA.
+'''
+
+for i in tqdm(range(len (dfFatec.head()))):
+    resultado_por_fatec=[]
+    id_ = dfFatec.loc[i,'id']
+    fatec_ = dfFatec.loc[i,'fatec']
+    #CARREGA UMA LISTA COM OS DADOS DO SELECT DA PAGINA. RECEBE OS DADOS DA FATEC
+    selectFatecs = Select(classificacao_geral_vest_fatec.find_element_by_id('CodFatec'))
+    #NAVEGA NA FATEC DA VEZ. ELE FAZ ESSE CICLO, SEGUINDO O DATAFRAME. PREENCHIDO EM OUTRO MOMENTO OU PELA FUNÇÃO OU PELO CSV
+    selectFatecs.select_by_visible_text(fatec_)
+    #APÓS SELECIONAR NO COMBO A FATEC - CLICA NO BOTÃO PARA IR PARA A PÁGINA DA ESCOLHA DO CURSO
+    classificacao_geral_vest_fatec.find_element_by_xpath('//*[@id="formClassificacao"]/div[2]/button').click()
+    #SEGURA A PÁGINA PARA QUE ELA POSSA ESTAR 100% CARREGADA PARA A PRÓXIMA ETAPA
+    time.sleep(4)
+    #PREENCHE A LISTA DE CURSOS OFERECIDAS NA FATEC SELECIONADA ANTERIRMENTE
+    selectCursos = Select(classificacao_geral_vest_fatec.find_element_by_id('CodEscolaCurso'))
+    #CRIA UM DICIONARIO PARA FACILITAR A NAVEGAÇÃO, ATRAVÉS DE UMA FUNÇÃO 
+    listaDeCursos = criarDicionario(selectCursos,['id','curso'])
+    #SEGURA A PÁGINA
+    time.sleep(2)
+
+    #print(f'quantidade de cursos {len(selectCursos.options)}')
+    #ENTRA EM UM LOOP PARA VISITAR TODOS OS CURSOS DA FATEC SELECIONADA
+    for c in range(len (listaDeCursos)):
+        lista_info_vestibular_fatec = {}
+        #RECARREGA O OBJETO PARA NÃO PERDER O PONTEIRO. DÁ PARA MELHORAR ESSE TRECHO
+        selectCursos = Select(classificacao_geral_vest_fatec.find_element_by_id('CodEscolaCurso'))
+        print(f'{fatec_} - {listaDeCursos[c]["curso"]}')
+        #ESSE VERIFICADOR IMPEDE QUE A OPÇÃO SELECIONE SEJA ITERADA
+        if 'Selecione...' not in listaDeCursos[c]['curso']:
+            #selectCursos.select_by_visible_text(listaDeCursos[c]['curso'])
+            #RECUPERO O ID DO CURSO E PASSO PARA A FUNÇÃO DO SELENIUM PARA SELECIONAR O ITEM NO SELECT
+            idC = str(listaDeCursos[c]['id'])
+            selectCursos.select_by_value(idC)
+            #REALIZO O CLICK PARA CHEGAR NA PRÓXIMA PÁGINA
+            classificacao_geral_vest_fatec.find_element_by_xpath('//*[@id="formClassificacao"]/div[2]/button').click()   
+            #SEGURO UM POUCO A PÁGINA PARA QUE CONSIGA CARREGAR. VERIFICAR SE EXISTE METÓDO MELHOR PARA AGUARDAR
+            time.sleep(2)   
+            #PEGO A URL ATUAL E CONCATENO COM AS INFORMAÇÕES DE IDENTIFICAÇÃO DA FATEC E CURSO.
+            #ESSE TRECHO PRECISA SER ADAPTADO PARA CASO O USUÁRIO JÁ SEJA REDIRECIONADO PARA A PAGINA DESTINO. ISSO ACONTECE CASO NÃO TENHA LISTA DE CONVOCAÇÃO DE 2 CHAMADA
+            url_lista_1chamada = classificacao_geral_vest_fatec.current_url
+            #cod_curso = int(selectCursos.options[c].get_attribute("value"))
+            url_lista_1chamada = (f'{url_lista_1chamada}?codfatec={id_}&codescolacurso={idC}&o=1')
+            #REALIZO O CLICK PARA CONSULTAR A TABELA DE CLASSIFICAÇÃO COM AS NOTAS
+            classificacao_geral_vest_fatec.find_element_by_xpath('/html/body/div[2]/div/div[2]/div/ul/li[1]/a').click()   
+            time.sleep(2)
+            #SELECIONO A TABELA COM O RESULTADO
+            tabela_ =classificacao_geral_vest_fatec.find_element_by_css_selector('table.table')
+            #AQUI ESTÁ UMA SACADA. COMO TEM CURSOS COM MUITOS INSCRITOS E AS VAGAS NO MÁXIMO SÃO DE 80 VAGAS. FAÇO UMA SELEÇÃO APENAS DOS 80 PRIMEIROS
+            resultado80 = tabela_.find_elements_by_css_selector('tbody tr:nth-child(-n + 100)')
+            #SEGURO A PÁGINA PARA QUE POSSA CARREGAR
+            time.sleep(5)
+            #A NOTA MÁXIMA SEMPRE SERÁ O PRIMEIRO REGISTRO. POR ISSO ATRIBUIÇÃO DIRETA.
+            nota_max= ajustarNota(resultado80[0])
+            #AGORA PRECISO DESCOBRIR A NOTA MINÍMA(CORTE) OU SEJA O ÚLTIMO CONVOCADO
+            nota_min = 0
+            #FACO UMA ITERAÇÃO DENTRO DA LISTA COM OS 80 PRIMEIROS. PODERIAM AJUSTAR PARA PERCORRER DE FORMA MULTIPLO DE 5. POIS O MÍNIMO DE VAGAS É 30
+            for i, linha in enumerate(resultado80):
+#                lista_info_vestibular_fatec = {}
+                #DENTRO DESSA ITERAÇÃO, TENHO CERTEZA QUE PEGAREI APENAS O CONVOCADO COM OO IF, SEMPRE ATUALIZANDO A NOTA MIN A CADA PASSAGEM. ITERROMPO, QUANDO A CONDIÇÃO DO IF FOR FALSE
+                if ('CONVOCADO' in linha.text.upper()):
+                    nota_min = ajustarNota(resultado80[i])
+                else:
+                    break            
+            print(f'NOTA MÁXIMA = {nota_max} | NOTA DE CORTE = {nota_min}')
+            #NESTA ETAPA JÁ POSSUO OS DADOS PARA CRIAR UM OBJETO COMOS RESULTADOS DESTE CURSO, PERIODO E DESTA FATEC
+            lista_info_vestibular_fatec['nome_curso'] = curso_periodo(listaDeCursos[c]["curso"])[0]#curso
+            lista_info_vestibular_fatec['instituicao'] = fatec_.strip()
+            lista_info_vestibular_fatec['ano']= 2021
+            lista_info_vestibular_fatec['semestre']= 1
+            lista_info_vestibular_fatec['periodo'] = curso_periodo(listaDeCursos[c]["curso"])[1]#periodo
+            lista_info_vestibular_fatec['nota_corte'] = nota_min
+            lista_info_vestibular_fatec['nota_maxima'] = nota_max
+            #ARMAZENO O RESULTADO EM UMA LISTA. CRIO DUAS MANEIRAS DISTINTAS
+            resultado_vestibular_da_fatec.append(lista_info_vestibular_fatec)            
+            resultado_por_fatec.append(lista_info_vestibular_fatec)
+            #RETORNO DUAS VEZES PARA RECOMEÇAR O PASSO A PASSO
+            classificacao_geral_vest_fatec.back()
+            classificacao_geral_vest_fatec.back()
+            resultado_vestibular_da_fatec2.append(resultado_por_fatec)
+    classificacao_geral_vest_fatec.back()
+    time.sleep(1)
