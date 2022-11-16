@@ -14,6 +14,9 @@ def home(request):
             return render(request,'index.html',{'nome':nome,'fatecs':fatecs})
     return render(request,'index.html',{'fatecs':fatecs})
 
+def calculadora(request):
+    return render(request,'calculadora.html')
+
 def contato(request):
     return redirect('https://wa.me/5515981057742')
 
