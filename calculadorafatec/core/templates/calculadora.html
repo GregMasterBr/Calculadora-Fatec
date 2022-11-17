@@ -10,17 +10,24 @@
 
 {% block 'body' %}
 <div class="container">
-    <div class="py-5 text-center">
+    <div class="py-5 text-center text-light">
         <img class="d-block mx-auto mb-4" src="{% static 'core/img/calculadora.png' %}" alt="" />
-        <h1>Realize o Cálculo na Calculadora Fatec</h1>
+        <h1>Calcule a sua nota na Calculadora Fatec</h1>
         <p class="lead">
           A ferramenta de cálculo é baseada fielmente no cálculo explicitado no <strong>manual do candidato</strong>. <br/>A nota calculada é uma <strong>estimativa</strong>, considerando as informações de desempenho da prova e redação.
         </p>
         <h5>Está ferramenta é mantida e revisada pela GregMaster. Boa Sorte!</h5>
     </div>    
-    <hr style="background-color: gray;" />
-    {% include 'ferramenta-calculadora-fatec.html' only %}
-  
+    <hr class="my-4" />
+    <div class="row ">
+      <div class="col-md-5 col-lg-5 col-12">
+        {% include 'ferramenta-calculadora-fatec.html' only %}
+      </div>
+      <div class="col-md-7 col-lg-7 col-12 order-md-last">
+          {% include 'explicativo-calculadora-fatec.html' only %}
+      </div>
+    </div>
+
 </div>    
 <script src="{% static 'core/js/calcularnota.js' %}" ></script>
 {% endblock %}
