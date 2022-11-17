@@ -1,0 +1,92 @@
+<main class="ferramenta-calculadora-fatec"></main>    
+    <div class="row">          
+        <div class="col-md-12 col-lg-12">
+            <form class="needs-validation" name="FormCalculadora" novalidate="">
+                <div class="row g-3">
+                    <h4 class="">Questões de acertos na prova</h4>
+                    <div class="col-sm-6">
+                    <label for="q1" class="form-label">Questões peso 1</label>
+                    <input type="number" class="form-control" name="qtde_peso1" min="0" max="44" id="q1" placeholder="Quantidade de acertos de questões de peso 1" value="0" required="required" onblur="qpeso1();" />
+                    <div class="invalid-feedback">
+                        O campo questões de peso 1 é requerido.
+                    </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                    <label for="q2" class="form-label">Questões peso 2</label>
+                    <input type="number" class="form-control" name="qtde_peso2" min="0" max="10" id="q2" placeholder="Quantidade de acertos de questões de peso 2" value="0" required="required" onblur="qpeso2();" />
+                    <div class="invalid-feedback">
+                        O campo questões de peso 2 é requerido.
+                    </div>
+                    </div>
+                </div>              
+                <hr class="my-4">
+                
+                <div class="row g-3">
+                    <h4 class="">Redação</h4>
+                    <div class="col-12">
+                    <label for="redacao" class="form-label">Estimativa da nota</label>
+                    <div class="input-group has-validation">
+                        <span class="input-group-text">0-100</span>
+                        <input type="number" class="form-control" id="redacao" name="redacao" min="0" max="100" value="0" placeholder="Estimava para a nota da redação" required="required" onblur="VerificarRedacao();" />
+                        <small class="text-muted col-12">Pontuação máxima é 100 pontos na redação.</small>
+                        <div class="invalid-feedback">
+                            A nota da redação é obrigatório.
+                        </div>
+                    </div>
+                    </div>
+                    <h4 class="mb-3">Gênero textual</h4>    
+                    <div class="my-3">
+                        <div class="form-check form-check-inline">
+                            <input id="genero_dissertacao" name="genero_dissertacao" type="radio" class="form-check-input" checked="checked" required="required">
+                            <label class="form-check-label" for="genero_dissertacao">Dissertação</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input id="genero_narracao" name="genero_narracao"  type="radio" class="form-check-input" required="required">
+                            <label class="form-check-label" for="genero_narracao">Narração</label>
+                        </div>
+                    </div>                
+                </div>
+                <hr class="my-4">
+                
+                <div class="row g-3"> 
+                    <h4 class="">ENEM</h4>              
+                    <div class="col-12">
+                        <div class="input-group mb-3 has-validation">                    
+                            <span class="input-group-text px-2">
+                                <input class="form-check-input mt-0" type="checkbox" name="enem" id="ckdEnem" onclick="EnableDisableEnem(this);"  />
+                                <span class="px-1">Utilizar o ENEM</span>
+                            </span>
+                            <input type="number" class="form-control" name="nota_enem" id="nota_enem" min="200" max="1000" placeholder="Informar a nota se selecionado usar a nota do ENEM" disabled="disabled" onblur="VerificarEnem();" />
+                            <small class="text-muted col-12">A nota do ENEM deve ser entre 200 á 1000 pontos.</small>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-4">
+                
+                <div class="row g-3"> 
+                    <h4 class="">Sistema de Pontuação Acrescida</h4>              
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="afro" />
+                        <label class="form-check-label" for="same-afro">Afrodescendência</label>
+                    </div>    
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="publica" />
+                        <label class="form-check-label" for="publica">Escolaridade Pública</label>
+                    </div>
+                </div>
+                <hr class="my-4">  
+                
+                <div class="row gy-3">
+                    <div class="col-12">
+                        <button type="button" class="w-100 btn btn-danger btn-lg" onclick="CalcularNota();">Calcular</button>
+                        <div class="input-group mb-3 mt-5 ">
+                            <span class="input-group-text">Estimativa da Nota</span>
+                            <input type="text" name="resultado"   id="resultado" class="form-control" placeholder="Resultado estimado" />
+                        </div>
+                    </div>                
+                </div>
+            </form>
+        </div>
+    </div>
+</main> 
