@@ -22,9 +22,11 @@
             <div class="input-group input-group-lg">
                 <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
                   <option selected>Escolha uma instituição...</option>
-                  <option value="1">Fatec Sorocaba</option>
-                  <option value="2">Fatec São Roque</option>
-                  <option value="3">Fatec São Paulo</option>
+                    {% for fatec in fatecs %}
+                        <option value="{{forloop.counter}}">{{fatec}}</option>
+                    {% empty %}
+                        <option value="0">Não tem nenhuma FATEC disponível</option>                        
+                    {% endfor %}                  
                 </select>
                 <button class="btn  btn-primary" type="button">Analisar Instituição</button>
               </div>

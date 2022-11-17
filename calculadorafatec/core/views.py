@@ -6,9 +6,11 @@ from django.contrib import messages
 from django.contrib.messages import constants
 # Create your views here.
 
+
 def home(request):
-    fatecs = ['Fatec Sorocaba', 'Fatec São Roque' , 'Fatec São Paulo', 'Fatec Itu', 'Fatec Carapicuíba']
     #fatecs = []
+    fatecs = ['Fatec Sorocaba', 'Fatec São Roque' , 'Fatec São Paulo', 'Fatec Itu', 'Fatec Carapicuíba']
+
     if request.method == "POST":
             nome = request.POST.get("nome")
             return render(request,'index.html',{'nome':nome,'fatecs':fatecs})
@@ -18,10 +20,13 @@ def calculadora(request):
     return render(request,'calculadora.html')
 
 def fatecs(request):
-    return render(request,'fatecs.html')
+    fatecs = ['Fatec Sorocaba', 'Fatec São Roque' , 'Fatec São Paulo', 'Fatec Itu', 'Fatec Carapicuíba']
+
+    return render(request,'fatecs.html',{'fatecs':fatecs})
 
 def cursos(request):
-    return render(request,'cursos.html')
+    cursos = ['Análise e Desenvolvimento de Sistemas', 'Sistemas para Internet' , 'Desenvolvimento Multiplataforma', 'Ciência de Dados', 'Sistemas Navais']
+    return render(request,'cursos.html',{'cursos':cursos})
 
 def materias_prova_peso2(request):
     return render(request,'materias-peso2.html')

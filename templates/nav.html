@@ -1,17 +1,17 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-nav">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">CALCULADORA FATEC</a>
+      <a class="navbar-brand" href="{% url 'home' %}">CALCULADORA FATEC</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-          </li>
+            <a class="nav-link active" aria-current="page" href="#" >Login</a>
+          </li>          
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Aplicativos
+              Recursos
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="{% url 'calculadora' %}">Calculadora</a></li>
@@ -19,12 +19,26 @@
               <li><a class="dropdown-item" href="{% url 'cursos' %}">Cursos</a></li> 
               <li><a class="dropdown-item" href="{% url 'materias-prova-peso2' %}">Matérias de peso 2 por curso</a></li>     
               <li><hr class="dropdown-divider"></li>
-
               <li><a class="dropdown-item" href="#">Nota de Corte</a></li>
+              <li><a class="dropdown-item" href="#">Simulados</a></li>
             </ul>
+
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Materiais úteis
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="https://calculadorafatec.gregmaster.com.br/folha-redacao.pdf" target="_blank">Folha de Redação</a></li>
+              <li><a class="dropdown-item" target="_blank" href="t.me/CalculadoraFatec">Canal Telegram</a></li>               
+              <li><a class="dropdown-item" target="_blank" href="https://www.youtube.com/channel/UCPY-NybV8D-K-tFXRoMLUew">Canal Youtube</a></li>  
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Grupo Whatsapp</a></li>
+              <li><a class="dropdown-item" target="_blank" href="https://hotmart.com/pt-br/marketplace/produtos/o-guia-definitivo-para-ser-aprovado-no-vestibular-da-fatec-dicas-informacoes-e-ferramentas-essenciais-para-o-candidato-da-fatec/T11263966A">Guia Completo</a></li>
+            </ul>
+          </li>          
           <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'contato' %}" target="_blank">Contato</a>
+              <a class="nav-link " aria-current="page" href="{% url 'contato' %}" target="_blank">Contato</a>
           </li>
       </div>
     </div>
