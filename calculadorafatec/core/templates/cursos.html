@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static%}
+
+{% block 'head' %} 
+    <meta name="description" content="Calculadora Fatec é uma ferramenta para auxiliar candidatos a ingressarem nas instituições Fatecs. Armazenamos todas as demandas e notas de cortes dos vestibulares e expertize para conduzir um melhor resultado para o vestibular. Por isso, Calculadora Fatec, quem usa, sabe. Assine agora o serviço e se aproxime do seu objetivo em ser um aluno da Fatec. VEM PRA FATEC! Os candidatos podem usar a ferramenta para Calcular a Nota do Vestibular, Consultar os Guias de Fatecs e Cursos e prepare-se melhor para o exame do Vestibular.">
+{% endblock %}
+
+{% block 'title' %}CURSOS: Calculadora FATEC::Quem Usa, SABE! {% endblock %}
+
+{% block 'body' %}
+<div class="container">
+    <div class="py-5 text-center text-light">
+        <img class="d-block mx-auto mb-4" src="{% static 'core/img/calculadora.png' %}" alt="" />
+        <h1>Cursos - Vestibular Fatec</h1>
+        <p class="lead">
+            Consulte informações pertinentes ao curso desejado. Tire suas dúvidas e faça uma escolha assertiva.
+        </p>
+    </div>    
+    <hr class="my-4" />
+    <div class="row">    
+        <div class="col-12 bg-light m-3 p-5 ">
+            <div class="input-group input-group-lg">
+                <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                  <option selected>Escolha um curso...</option>
+                  <option value="1">Análise e Desenvolvimento de Sistemas</option>
+                  <option value="2">Sistemas para Internet</option>
+                  <option value="3">Desenvolvimento Multiplataforma</option>
+                </select>
+                <button class="btn  btn-primary" type="button">Analisar Curso</button>
+              </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

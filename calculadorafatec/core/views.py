@@ -17,6 +17,15 @@ def home(request):
 def calculadora(request):
     return render(request,'calculadora.html')
 
+def fatecs(request):
+    return render(request,'fatecs.html')
+
+def cursos(request):
+    return render(request,'cursos.html')
+
+def materias_prova_peso2(request):
+    return render(request,'materias-peso2.html')
+
 def contato(request):
     return redirect('https://wa.me/5515981057742')
 
