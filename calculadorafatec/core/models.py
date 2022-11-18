@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from calculadorafatec.core.managers import  KindQuerySet
+from django.shortcuts import resolve_url as r
 
 # Create your models here.
 class Regiao(models.Model):
@@ -58,11 +59,17 @@ class Fatec(models.Model):
     def __str__(self) -> str:
         return f"{self.fatec} {self.institucional}"
 
+
+    def get_absolute_url(self):
+            return r('detalhes_fatec', slug=self.slug)
+
+    def qtd_cursos(self):
+        return Curso.objects.filter(fatec__id=self.id).count()
+
     # def save(self, *args, **kwargs):
     #     if not self.slug:
     #         self.slug = slugify(self.fatec)
-
-        return super().save(*args, **kwargs)        
+    #    return super().save(*args, **kwargs)        
 
 
 class Contact(models.Model):

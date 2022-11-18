@@ -22,6 +22,9 @@ urlpatterns = [
     path('materias-prova-peso2/', views.materias_prova_peso2, name='materias-prova-peso2'),
     path('cursos/', views.cursos, name='cursos'),
     path('fatecs/', views.fatecs, name='fatecs'),
+    #path('detalhes-fatec/<int:id>', views.detalhes_fatec, name="detalhes_fatec"),
+    #path('detalhes-fatec/<slug:slug>/', views.detalhes_fatec, name="detalhes_fatec"),
+    path('detalhes-fatec/', views.detalhes_fatec, name="detalhes_fatec"),
     path('contato/', views.contato, name='contato'),
     path('logout/', views.logout, name='logout'),
 ]

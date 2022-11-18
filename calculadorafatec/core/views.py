@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.contrib import messages
 from django.contrib.messages import constants
 from calculadorafatec.core.models import Curso, Fatec
+from django.conf import settings
 
 # Create your views here.
 
@@ -25,6 +26,16 @@ def fatecs(request):
     #fatecs = ['Fatec Sorocaba', 'Fatec São Roque' , 'Fatec São Paulo', 'Fatec Itu', 'Fatec Carapicuíba']
     fatecs = Fatec.objects.all()
     return render(request,'fatecs.html',{'fatecs':fatecs})
+
+def detalhes_fatec(request):
+    id = request.GET.get('cod_fatec')
+    fatec = get_object_or_404(Fatec, id=id)   
+    fatec.imagem = f'{settings.MEDIA_URL}{fatec.imagem}'
+    todos_cursos = Curso.objects.all()
+    cursos = Curso.objects.filter(fatec__id=id)
+    print(fatec.cursos)
+    return render(request,'detalhes-fatec.html', {'detalhe': fatec,'cursos':cursos})   
+
 
 def cursos(request):
     #cursos = ['Análise e Desenvolvimento de Sistemas', 'Sistemas para Internet' , 'Desenvolvimento Multiplataforma', 'Ciência de Dados', 'Sistemas Navais']

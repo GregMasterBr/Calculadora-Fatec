@@ -19,17 +19,20 @@
     <hr class="my-4" />
     <div class="row">    
         <div class="col-12 bg-light m-3 p-5 ">
-            <div class="input-group input-group-lg">
-                <select class="form-select" id="fatecs" name="cod_fatec">
-                  <option selected>Escolha uma instituição...</option>
-                    {% for fatec in fatecs %}
-                        <option value="{{forloop.counter}}">{{fatec}}</option>
-                    {% empty %}
-                        <option value="0">Não tem nenhuma FATEC disponível</option>                        
-                    {% endfor %}                  
-                </select>
-                <button class="btn  btn-primary" type="button">Analisar Instituição</button>
-              </div>
+            <form  action="{% url 'detalhes_fatec' %}" method="GET" enctype="multipart/form-data"> {% csrf_token %}
+                <div class="input-group input-group-lg">
+                    <select class="form-select" id="fatecs" name="cod_fatec">
+                        <option selected>Escolha uma instituição...</option>
+                            {% for fatec in fatecs %}
+                                <option value="{{forloop.counter}}">{{fatec}}</option>
+                            {% empty %}
+                                <option value="0">Não tem nenhuma FATEC disponível</option>                        
+                            {% endfor %}                  
+                    </select>
+                    <!-- <button type="submit" class="btn btn-primary" type="submit" >Analisar Instituição</button> -->
+                    <input type="submit" class="btn btn-primary" value="Analisar Instituição" />
+                </div>                
+            </form> 
         </div>
     </div>
 </div>
