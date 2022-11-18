@@ -23,7 +23,7 @@ class Curso(models.Model):
     profissional_faz = models.TextField("O profisisonal faz", blank=True, null= True)
     mercado_trabalho = models.TextField("Mercado de trabalho", blank=True, null= True)
     #sugestao_cursos = models.ManyToManyField(Curso)    
-    ativa = models.BooleanField('ativa',default=True)
+    ativo = models.BooleanField('ativa',default=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
 
     class Meta:
@@ -44,9 +44,9 @@ class Fatec(models.Model):
     site = models.URLField(blank=True)
     data_inauguracao = models.DateField('Data de Inauguração', blank=True, null=True)
     criado_em = models.DateTimeField('criado em',auto_now=True)
-    ativa = models.BooleanField('ativa',default=True)
+    ativo = models.BooleanField('ativa',default=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
-    cursos= models.ManyToManyField(Curso, null=True,  blank=True) 
+    cursos= models.ManyToManyField(Curso,  blank=True) 
     imagem = models.ImageField('Fachada',upload_to="fatecs",blank=True, null=True)
     #imagem = models.ForeignKey( Imagem, on_delete=models.SET_NULL, null=True, related_name='Imagem', blank=True)
 
@@ -56,7 +56,7 @@ class Fatec(models.Model):
         ordering = ('fatec',)
 
     def __str__(self) -> str:
-        return f"{self.fatec} | {self.institucional}"
+        return f"{self.fatec} {self.institucional}"
 
     # def save(self, *args, **kwargs):
     #     if not self.slug:

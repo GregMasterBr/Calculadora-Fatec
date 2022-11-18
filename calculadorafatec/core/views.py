@@ -4,6 +4,8 @@ from django.urls import reverse
 #Django Messages - definida lá no settings - MESSAGES_TAG
 from django.contrib import messages
 from django.contrib.messages import constants
+from calculadorafatec.core.models import Curso, Fatec
+
 # Create your views here.
 
 
@@ -20,12 +22,13 @@ def calculadora(request):
     return render(request,'calculadora.html')
 
 def fatecs(request):
-    fatecs = ['Fatec Sorocaba', 'Fatec São Roque' , 'Fatec São Paulo', 'Fatec Itu', 'Fatec Carapicuíba']
-
+    #fatecs = ['Fatec Sorocaba', 'Fatec São Roque' , 'Fatec São Paulo', 'Fatec Itu', 'Fatec Carapicuíba']
+    fatecs = Fatec.objects.all()
     return render(request,'fatecs.html',{'fatecs':fatecs})
 
 def cursos(request):
-    cursos = ['Análise e Desenvolvimento de Sistemas', 'Sistemas para Internet' , 'Desenvolvimento Multiplataforma', 'Ciência de Dados', 'Sistemas Navais']
+    #cursos = ['Análise e Desenvolvimento de Sistemas', 'Sistemas para Internet' , 'Desenvolvimento Multiplataforma', 'Ciência de Dados', 'Sistemas Navais']
+    cursos = Curso.objects.filter(ativo=True)
     return render(request,'cursos.html',{'cursos':cursos})
 
 def materias_prova_peso2(request):

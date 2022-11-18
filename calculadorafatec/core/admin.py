@@ -5,9 +5,9 @@ from calculadorafatec.core.models import Contact, Social, EixoTecnologico, Curso
 
 class CursoModelAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('curso',)}
-
-    list_display = ['curso','eixo_tecnologico','conteudo_estudo','profissional_faz', 'mercado_trabalho', 'ativa']
-    search_fields = ('curso','eixo_tecnologico')
+    list_display = ['curso','eixo_tecnologico','conteudo_estudo','profissional_faz', 'mercado_trabalho', 'ativo']
+    search_fields = ('curso',)
+    list_filter = ('eixo_tecnologico','ativo')
 
 
 class SocialInLine(admin.TabularInline):
