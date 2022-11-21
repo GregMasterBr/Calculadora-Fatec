@@ -20,6 +20,7 @@ class EixoTecnologico(models.Model):
         return self.eixo_tecnologico
 
 class Curso(models.Model):
+    #cod_curso = models.PositiveIntegerField(primary_key=True) or cod_curso = models.AutoField(primary_key=True)
     curso = models.CharField(max_length=100, blank=True)
     eixo_tecnologico = models.ForeignKey(EixoTecnologico, blank=True, null=True, on_delete=models.SET_NULL)
     materia_1 = models.CharField('Materia peso 2 (1ª)', blank=True, max_length=4, choices=ChoicesDisciplinas.choices)
@@ -36,10 +37,17 @@ class Curso(models.Model):
         verbose_name = 'Curso'
         ordering = ('curso',)
 
+    #attributes
+    @property
+    def cod_curso(self):
+        return self.id
+        #access it as curso.cod_curso where you would normally do curso.id
+
     def __str__(self) -> str:
         return self.curso
 
 class Fatec(models.Model):
+    #cod_instituicao = models.PositiveIntegerField(primary_key=True) or cod_instituicao = models.AutoField(primary_key=True)
     fatec = models.CharField(max_length=100, unique=True)
     institucional = models.CharField(max_length=100, blank=True)
     regiao = models.ForeignKey(Regiao, on_delete=models.SET_NULL, null=True, verbose_name='região')
@@ -131,3 +139,24 @@ class Social(models.Model):
     
     def __str__(self):
         return self.value  
+
+
+class ResultadoVestibularFatec(models.Model):
+    cod_resultado_fatec = models.PositiveIntegerField(primary_key=True) 
+    cod_curso = models.IntegerField()
+    cod_instituicao = models.IntegerField()
+    ano = models.IntegerField()
+    semestre = models.IntegerField()
+    periodo = models.CharField(max_length=10)
+    qtde_vagas = models.IntegerField()
+    qtde_inscrito = models.IntegerField()
+    demanda = models.FloatField()
+    nota_corte = models.FloatField()
+    nota_maxima = models.FloatField()
+
+    class Meta:
+        verbose_name_plural = 'resultados do vestibulares da fatec'
+        verbose_name = 'resultado do vestibular da fatec'
+    
+    def __str__(self):
+        return self.cod_resultado_fatec  

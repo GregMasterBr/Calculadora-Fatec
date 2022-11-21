@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django.conf import settings
-from calculadorafatec.core.models import Contact, Social, EixoTecnologico, Curso, Fatec, Regiao
+from calculadorafatec.core.models import Contact, Social, EixoTecnologico, Curso, Fatec, Regiao, ResultadoVestibularFatec
 
 class CursoModelAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('curso',)}
@@ -53,7 +53,12 @@ class FatecModelAdmin(admin.ModelAdmin):
 
     whatsapp.short_description = 'whatsapp'        
 
+class ResultadoVestibularFatecModelAdmin(admin.ModelAdmin):
+    list_display = ['cod_resultado_fatec',	'cod_curso', 'cod_instituicao', 'ano', 'semestre', 'periodo', 'qtde_vagas', 'qtde_inscrito', 'demanda', 'nota_corte', 'nota_maxima']
+    ordering = ('cod_resultado_fatec', 'semestre', 'ano')
+
 admin.site.register(Fatec,FatecModelAdmin)
 admin.site.register(Regiao)
 admin.site.register(EixoTecnologico)
 admin.site.register(Curso, CursoModelAdmin)
+admin.site.register(ResultadoVestibularFatec, ResultadoVestibularFatecModelAdmin)
