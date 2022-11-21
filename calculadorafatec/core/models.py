@@ -2,6 +2,8 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from calculadorafatec.core.managers import  KindQuerySet
 from django.shortcuts import resolve_url as r
+from .choices_disciplinas import ChoicesDisciplinas
+
 
 # Create your models here.
 class Regiao(models.Model):
@@ -13,13 +15,15 @@ class Regiao(models.Model):
 
 class EixoTecnologico(models.Model):
     eixo_tecnologico = models.CharField(max_length=100, blank=True)
-
+    
     def __str__(self):
         return self.eixo_tecnologico
 
 class Curso(models.Model):
     curso = models.CharField(max_length=100, blank=True)
     eixo_tecnologico = models.ForeignKey(EixoTecnologico, blank=True, null=True, on_delete=models.SET_NULL)
+    materia_1 = models.CharField('Materia peso 2 (1ª)', blank=True, max_length=4, choices=ChoicesDisciplinas.choices)
+    materia_2 = models.CharField('Materia peso 2 (2ª)', blank=True, max_length=4, choices=ChoicesDisciplinas.choices)    
     conteudo_estudo = models.TextField("O aluno estuda",  blank=True, null= True)
     profissional_faz = models.TextField("O profisisonal faz", blank=True, null= True)
     mercado_trabalho = models.TextField("Mercado de trabalho", blank=True, null= True)
