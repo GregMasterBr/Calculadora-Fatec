@@ -4,8 +4,16 @@ from django.urls import reverse
 #Django Messages - definida lá no settings - MESSAGES_TAG
 from django.contrib import messages
 from django.contrib.messages import constants
-from calculadorafatec.core.models import Curso, Fatec
+from calculadorafatec.core.models import Curso, Fatec, EixoTecnologico
 from django.conf import settings
+
+from django.core.paginator import (
+    Paginator,
+    EmptyPage,
+    PageNotAnInteger,
+)
+
+
 
 # Create your views here.
 
@@ -27,15 +35,20 @@ def fatecs(request):
     fatecs = Fatec.objects.all()
     return render(request,'fatecs.html',{'fatecs':fatecs})
 
-def detalhes_fatec(request):
+def busca_slug_fatec(request):
     id = request.GET.get('cod_fatec')
-    fatec = get_object_or_404(Fatec, id=id)   
+    if id != "0":
+        fatec = get_object_or_404(Fatec, id=id) #capturar a excessão aqui
+        return redirect('detalhes_fatec', fatec.slug)    
+    return redirect('fatecs')    
+
+def detalhes_fatec(request, slug):
+    fatec = get_object_or_404(Fatec, slug=slug)   
     fatec.imagem = f'{settings.MEDIA_URL}{fatec.imagem}'
     todos_cursos = Curso.objects.all()
-    cursos = Curso.objects.filter(fatec__id=id)
+    cursos = Curso.objects.filter(fatec__id=fatec.id)
     print(fatec.cursos)
     return render(request,'detalhes-fatec.html', {'detalhe': fatec,'cursos':cursos})   
-
 
 def cursos(request):
     #cursos = ['Análise e Desenvolvimento de Sistemas', 'Sistemas para Internet' , 'Desenvolvimento Multiplataforma', 'Ciência de Dados', 'Sistemas Navais']
@@ -44,6 +57,45 @@ def cursos(request):
 
 def materias_prova_peso2(request):
     return render(request,'materias-peso2.html')
+
+
+def materias_prova_peso2B(request):
+    # Get page number from request, 
+    # default to first page
+    default_page = 1
+    quantidade_ = request.GET.get('quantidades_cursos')
+    print(quantidade_)
+    if quantidade_!="":
+        default_page = quantidade_
+    
+    
+    page = request.GET.get('page', default_page)
+
+    eixo_filtrar = request.GET.get('eixo-texnologico')
+    nome_curso_filtrar = request.GET.get('nome-curso')
+    cursos = Curso.objects.all()
+
+    if eixo_filtrar:
+        cursos = cursos.filter(eixo_tecnologico = eixo_filtrar)
+    
+    if nome_curso_filtrar:
+        cursos = cursos.filter(curso__icontains = nome_curso_filtrar)    
+
+    eixo_tecnologicos = EixoTecnologico.objects.all()    
+    # Paginate items
+    items_per_page = 1
+    paginator = Paginator(cursos, items_per_page)  
+
+    try:
+        items_cursos_page = paginator.page(page)
+    except PageNotAnInteger:
+        items_cursos_page = paginator.page(default_page)
+    except EmptyPage:
+        items_cursos_page = paginator.page(paginator.num_pages)          
+
+    # Provide filtered, paginated library items
+    return render(request,'materias-peso2B.html',{'cursos':cursos, 'eixo_tecnologicos':eixo_tecnologicos,'items_cursos_page':items_cursos_page})
+
 
 def contato(request):
     return redirect('https://wa.me/5515981057742')

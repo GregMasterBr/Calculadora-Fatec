@@ -3,7 +3,7 @@ from django.db.models import TextChoices
 class ChoicesDisciplinas(TextChoices):
     BIOLOGIA = "BIO", "BIOLOGIA"
     CONHECIMENTO_GERAIS = "CONG", "CONHECIMENTO GERAIS"
-    FISICA = "FIS", "FISÍCA"
+    FISICA = "FIS", "FÍSICA"
     GEOGRAFIA = "GEO", "GEOGRAFIA"
     HISTORIA = "HIST", "HISTÓRIA"    
     INGLES = "ING", "INGLÊS"        

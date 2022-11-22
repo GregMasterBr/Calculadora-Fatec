@@ -2,7 +2,9 @@
 Construção da Plataforma Calculadora Fatec em versão Python.
 
 ## A FAZER  
-[x] 1 Parte será o LAYOUT
+[x] Estrutura base do projeto
+[x] Rotas (Home e funcionalidades)
+[x] Instalação do boostrap v5 no base.html
 [] ...
 
 Para fazer import via linha de comando do sqllite

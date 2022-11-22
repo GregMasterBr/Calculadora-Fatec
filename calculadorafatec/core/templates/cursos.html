@@ -23,7 +23,8 @@
                 <select class="form-select" id="cursos" name="cod_curso" aria-label="Example select with button addon">
                   <option selected>Escolha um curso...</option>
                     {% for curso in cursos %}
-                        <option value="{{forloop.counter}}">{{curso}}</option>
+                        <!-- {{forloop.counter}} -->
+                        <option value="{{curso.id}}">{{curso}}</option>
                     {% empty %}
                         <option value="0">Não tem nenhum curso disponível</option>                        
                     {% endfor %}  

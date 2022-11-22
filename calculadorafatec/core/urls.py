@@ -20,11 +20,15 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('calculadora/', views.calculadora, name='calculadora'),
     path('materias-prova-peso2/', views.materias_prova_peso2, name='materias-prova-peso2'),
+    path('materias-prova-peso2B/', views.materias_prova_peso2B, name='materias-prova-peso2B'),
+
     path('cursos/', views.cursos, name='cursos'),
+    
     path('fatecs/', views.fatecs, name='fatecs'),
+    path('busca-slug-fatec/', views.busca_slug_fatec, name="busca_slug_fatec"), # intermediária. Usava para capturar o slug
     #path('detalhes-fatec/<int:id>', views.detalhes_fatec, name="detalhes_fatec"),
-    #path('detalhes-fatec/<slug:slug>/', views.detalhes_fatec, name="detalhes_fatec"),
-    path('detalhes-fatec/', views.detalhes_fatec, name="detalhes_fatec"),
+    path('detalhes-fatec/<slug:slug>/', views.detalhes_fatec, name="detalhes_fatec"),
+    #path('detalhes-fatec/', views.detalhes_fatec, name="detalhes_fatec"),
     path('contato/', views.contato, name='contato'),
     path('logout/', views.logout, name='logout'),
 ]
