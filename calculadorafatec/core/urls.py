@@ -20,7 +20,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('calculadora/', views.calculadora, name='calculadora'),
     path('materias-prova-peso2/', views.materias_prova_peso2, name='materias-prova-peso2'),
-    path('materias-prova-peso2B/', views.materias_prova_peso2B, name='materias-prova-peso2B'),
+    path('materias-prova-peso2-com-js/', views.materias_prova_peso2_com_js, name='materias-prova-peso2-com-js'),
 
     path('cursos/', views.cursos, name='cursos'),
     

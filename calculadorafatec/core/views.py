@@ -55,35 +55,38 @@ def cursos(request):
     cursos = Curso.objects.filter(ativo=True)
     return render(request,'cursos.html',{'cursos':cursos})
 
+def materias_prova_peso2_com_js(request):
+    return render(request,'materias-peso2-com-js.html')
+
+
 def materias_prova_peso2(request):
-    return render(request,'materias-peso2.html')
-
-
-def materias_prova_peso2B(request):
-    # Get page number from request, 
-    # default to first page
     default_page = 1
     quantidade_ = request.GET.get('quantidades_cursos')
-    print(quantidade_)
-    if quantidade_!="":
+  
+    if quantidade_:
         default_page = quantidade_
-    
-    
+
     page = request.GET.get('page', default_page)
 
     eixo_filtrar = request.GET.get('eixo-texnologico')
     nome_curso_filtrar = request.GET.get('nome-curso')
+
     cursos = Curso.objects.all()
 
     if eixo_filtrar:
         cursos = cursos.filter(eixo_tecnologico = eixo_filtrar)
+    else:
+        eixo_filtrar = 0
     
     if nome_curso_filtrar:
-        cursos = cursos.filter(curso__icontains = nome_curso_filtrar)    
+        cursos = cursos.filter(curso__icontains = nome_curso_filtrar)   
+    else:
+        nome_curso_filtrar = ""
 
     eixo_tecnologicos = EixoTecnologico.objects.all()    
+
     # Paginate items
-    items_per_page = 1
+    items_per_page = 2
     paginator = Paginator(cursos, items_per_page)  
 
     try:
@@ -94,7 +97,7 @@ def materias_prova_peso2B(request):
         items_cursos_page = paginator.page(paginator.num_pages)          
 
     # Provide filtered, paginated library items
-    return render(request,'materias-peso2B.html',{'cursos':cursos, 'eixo_tecnologicos':eixo_tecnologicos,'items_cursos_page':items_cursos_page})
+    return render(request,'materias-peso2.html',{'cursos':cursos, 'eixo_tecnologicos':eixo_tecnologicos,'items_cursos_page':items_cursos_page, 'pesquisa_nome_curso':nome_curso_filtrar, 'pesquisa_eixo_tecnologico': int(eixo_filtrar) })
 
 
 def contato(request):
