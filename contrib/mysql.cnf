@@ -1,0 +1,8 @@
+[client]
+database = calculadorafatecpy
+name = calculadorafatecpy
+user = root
+password = root
+host =  localhost
+port = 3306
+default-character-set = utf8
