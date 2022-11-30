@@ -9,6 +9,7 @@ dj-static==0.0.6
 Django==4.1.1
 django-allauth==0.51.0
 idna==3.4
+mysqlclient==2.1.1
 oauthlib==3.2.1
 Pillow==9.2.0
 pycparser==2.21

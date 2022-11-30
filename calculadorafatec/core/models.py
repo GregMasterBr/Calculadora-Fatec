@@ -53,6 +53,7 @@ class Fatec(models.Model):
     regiao = models.ForeignKey(Regiao, on_delete=models.SET_NULL, null=True, verbose_name='região')
     cidade = models.CharField(max_length=100, blank=True)
     endereco = models.CharField(max_length=150, blank=True)
+    googlemaps_iframe = models.TextField(blank=True, null= True)
     googlemaps = models.URLField(blank=True)
     site = models.URLField(blank=True)
     data_inauguracao = models.DateField('Data de Inauguração', blank=True, null=True)

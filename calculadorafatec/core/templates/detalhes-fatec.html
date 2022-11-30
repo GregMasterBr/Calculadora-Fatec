@@ -3,14 +3,22 @@
 
 {% block 'head' %} 
     <meta name="description" content="Calculadora Fatec é uma ferramenta para auxiliar candidatos a ingressarem nas instituições Fatecs. Armazenamos todas as demandas e notas de cortes dos vestibulares e expertize para conduzir um melhor resultado para o vestibular. Por isso, Calculadora Fatec, quem usa, sabe. Assine agora o serviço e se aproxime do seu objetivo em ser um aluno da Fatec. VEM PRA FATEC! Os candidatos podem usar a ferramenta para Calcular a Nota do Vestibular, Consultar os Guias de Fatecs e Cursos e prepare-se melhor para o exame do Vestibular.">
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=424712847699208&autoLogAppEvents=1';
+        fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));</script>    
 {% endblock %}
 
 {% block 'title' %}Análise Fatec: {{detalhe.fatec}} {% endblock %}
 
 {% block 'body' %}
-<div class="container">
-    <div class="py-5 text-center text-light">
-        <img class="d-block mx-auto mb-4" width="500px" src="{{detalhe.imagem}}" alt=""  title="Fachada da {{detalhe.fatec}}"/>
+    
+<div class="container">    
+    <div class="py-5 text-center text-light ">
+        <img class="img-fluid d-block mx-auto mb-4" width="500px" src="{{detalhe.imagem}}" alt=""  title="Fachada da {{detalhe.fatec}}"/>
         <h1>Seja bem-vindo(a) na - Fatec {{detalhe.fatec}}<br />{{detalhe.institucional}}</h1>
         <p class="lead">
             Consulte informações pertinentes a instituição desejada. Tire suas dúvidas e faça uma escolha assertiva.
@@ -19,8 +27,17 @@
     <hr class="my-4" />
     <div class="row">    
         <div class="col-12 bg-light m-3 p-5 ">
+            <div class="fb-page" data-href="https://www.facebook.com/fatecsorocaba/" data-tabs="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>
+            <address class="my-3"> 
+                <strong>Endereço:</strong> {{detalhe.endereco}}<br />
+                <strong>Cidade:</strong> {{detalhe.cidade}}/SP<br />
+                <strong>Região:</strong> {{detalhe.regiao}}<br />
+                Visualizar no <a href="{{detalhe.googlemaps}}" target="_blank">GoogleMaps</a><br />
+                <a class="btn btn-outline-secondary my-2" href="#mapa-localizacao" role="button">Ver Mapa</a>
+            </address>            
+
             <div class="input-group input-group-lg">
-                <ul>
+                <ul class="d-none">
                     <li>FATEC: {{detalhe.fatec}} </li>
                     <li>INSTITUCIONAL: {{detalhe.institucional}} </li>                    
                     <li>CIDADE: {{detalhe.cidade}} </li>
@@ -43,12 +60,28 @@
                             <li>CONTEÚDO DE ESTUDO: {{curso.conteudo_estudo}}</li>
                             <li>PROFISSIONAL FAZ: {{curso.profissional_faz}}</li>
                             <li>MERCADO DE TRABALHO: {{curso.mercado_trabalho}}</li>
-                            <li>ATIVO: {{curso.ativo}}</li>                            
+                            <li>ATIVO: {{curso.ativo}}</li>       
                         </ul>
                     {% empty %}
                         <li>Não tem nenhum curso disponível</li>                        
                     {% endfor %}                      
                 </ul>
+                <div class="cursos">
+                    <h2>Cursos Oferecidos <span class="badge bg-primary">{{detalhe.qtd_cursos}}</span></h2>
+                    <h3>Cursos Superiores de Tecnologia Presenciais</h3>
+                    <ul>
+                        {% for curso in cursos %}
+                        <li><a href="detalhes-curso/{{curso.slug}}" class="{{ curso.id }}">{{curso}}</a> <span class="badge bg-info">{{curso.eixo_tecnologico}}</span></li>
+                        {% empty %}
+                            <li>Não tem nenhum curso disponível</li>                        
+                        {% endfor %} 
+                    </ul>
+                </div>
+                <div class="mapa my-3 col-12 text-center" id="mapa-localizacao">
+                    {% autoescape off %}
+                        {{ detalhe.googlemaps_iframe }}
+                    {% endautoescape %}
+                </div>
                 
                 <a class="w-100 btn  btn-primary" type="button" href="{%url 'fatecs' %}">Analisar outra instituição</a>
             </div>
@@ -56,4 +89,13 @@
     </div>
 </div>
 
+   {% comment "A fazer" %}
+    <ul>
+        <li>Trazer todos os endereços sociais (facebook, ...)</li>
+        <li>Trazer todos as formas de contato (email, telefone e whatsapp)</li>
+        <li>Trazer as listas de cursos ofertados na unidade</li>
+        <li>Demanda dos cursos - criar relacionamento e model</li>
+        <li>Layout para exibir as demandas</li>
+    </ul>
+    {% endcomment %}
 {% endblock %}
