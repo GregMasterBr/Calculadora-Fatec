@@ -29,7 +29,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG',default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1', cast=Csv())
 
 DEFAULT_FROM_EMAIL='calculadorafatec+suporte@gmail.com'
 
@@ -97,15 +97,21 @@ WSGI_APPLICATION = 'calculadorafatec.wsgi.application'
 #     }
 # }
 
-# settings.py
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'OPTIONS': {
+#             'read_default_file': os.path.join(BASE_DIR, 'contrib/mysql.cnf'),
+#         },
+#     }
+# }
+
+default_dburl = 'sqlite:///' + str(BASE_DIR / 'db.sqlite3')
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': os.path.join(BASE_DIR, 'contrib/mysql.cnf'),
-        },
-    }
+    'default': config('DATABASE_URL', default=default_dburl, cast=dburl),
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

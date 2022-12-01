@@ -1,6 +1,7 @@
 SECRET_KEY=THIS_IS_NOT_A_GOOD_SECRET
 DEBUG=False
 ALLOWED_HOSTS=127.0.0.1, .localhost, .herokuapp.com
+DATABASE_URL=mysql://myuser:mypassword@myhost:port/mydatabase
 
 EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
 EMAIL_HOST=localhost
