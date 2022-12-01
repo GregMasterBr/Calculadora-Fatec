@@ -4,18 +4,13 @@ from django.urls import reverse
 #Django Messages - definida lá no settings - MESSAGES_TAG
 from django.contrib import messages
 from django.contrib.messages import constants
-from calculadorafatec.core.models import Curso, Fatec, EixoTecnologico
+from calculadorafatec.core.models import Curso, Fatec, ResultadoVestibularFatec, EixoTecnologico, Social, Contact
 from django.conf import settings
-
 from django.core.paginator import (
     Paginator,
     EmptyPage,
     PageNotAnInteger,
 )
-
-
-
-# Create your views here.
 
 
 def home(request):
@@ -27,13 +22,16 @@ def home(request):
             return render(request,'index.html',{'nome':nome,'fatecs':fatecs})
     return render(request,'index.html',{'fatecs':fatecs})
 
+
 def calculadora(request):
     return render(request,'calculadora.html')
+
 
 def fatecs(request):
     #fatecs = ['Fatec Sorocaba', 'Fatec São Roque' , 'Fatec São Paulo', 'Fatec Itu', 'Fatec Carapicuíba']
     fatecs = Fatec.objects.all()
     return render(request,'fatecs.html',{'fatecs':fatecs})
+
 
 def busca_slug_fatec(request):
     id = request.GET.get('cod_fatec')
@@ -42,13 +40,19 @@ def busca_slug_fatec(request):
         return redirect('detalhes_fatec', fatec.slug)    
     return redirect('fatecs')    
 
+
 def detalhes_fatec(request, slug):
     fatec = get_object_or_404(Fatec, slug=slug)   
     fatec.imagem = f'{settings.MEDIA_URL}{fatec.imagem}'
     todos_cursos = Curso.objects.all()
     cursos = Curso.objects.filter(fatec__id=fatec.id)
-    print(fatec.cursos)
-    return render(request,'detalhes-fatec.html', {'detalhe': fatec,'cursos':cursos})   
+    socialmedia =  Social.objects.filter(Fatec_id=fatec.id)
+    contatos =  Contact.objects.filter(Fatec_id=fatec.id)
+    resultados_cursos = ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre')
+    #resultados_cursos.intersection(cursos).values()
+    print(resultados_cursos.values())
+    return render(request,'detalhes-fatec.html', {'detalhe': fatec,'cursos':cursos, 'redessociais': socialmedia, 'contatos': contatos, 'resultados':resultados_cursos})   
+
 
 def cursos(request):
     #cursos = ['Análise e Desenvolvimento de Sistemas', 'Sistemas para Internet' , 'Desenvolvimento Multiplataforma', 'Ciência de Dados', 'Sistemas Navais']
@@ -102,6 +106,7 @@ def materias_prova_peso2(request):
 
 def contato(request):
     return redirect('https://wa.me/5515981057742')
+
 
 def logout(request):
     request.session.flush()

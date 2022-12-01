@@ -146,6 +146,8 @@ class ResultadoVestibularFatec(models.Model):
     cod_resultado_fatec = models.PositiveIntegerField(primary_key=True) 
     cod_curso = models.IntegerField()
     cod_instituicao = models.IntegerField()
+    #cod_curso = models.ForeignKey(Curso, on_delete=models.SET_NULL, blank=True,null=True,)
+    #cod_instituicao = models.ForeignKey(Fatec, on_delete=models.SET_NULL, blank=True,null=True,)
     ano = models.IntegerField()
     semestre = models.IntegerField()
     periodo = models.CharField(max_length=10)
@@ -159,5 +161,9 @@ class ResultadoVestibularFatec(models.Model):
         verbose_name_plural = 'resultados do vestibulares da fatec'
         verbose_name = 'resultado do vestibular da fatec'
     
+    def nome_curso(self, id_ = 1): #teste
+        cTeste = (Curso.objects.filter(id=id_).values('curso'))                
+        return (Curso.objects.values('curso').get(pk=id_))        
+
     def __str__(self):
-        return self.cod_resultado_fatec  
+        return str(self.cod_resultado_fatec)
