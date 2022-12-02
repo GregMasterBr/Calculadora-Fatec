@@ -52,7 +52,12 @@ def detalhes_fatec(request, slug):
     #resultados_cursos = ResultadoVestibularFatec.objects.all().order_by('-ano', '-semestre')
     #resultados_cursos.intersection(cursos).values()
     resultados_cursos = ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre')
-    print(resultados_cursos.values())
+    resultados_cursos2 = ResultadoVestibularFatec.objects.select_related('cursos').filter(cod_instituicao=fatec.id)
+    #print(resultados_cursos.union(cursos))
+
+    print(resultados_cursos2.values())
+
+    #print(resultados_cursos.values())
     return render(request,'detalhes-fatec.html', {'detalhe': fatec,'cursos':cursos, 'redessociais': socialmedia, 'contatos': contatos, 'resultados':resultados_cursos})   
 
 

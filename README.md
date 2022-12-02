@@ -32,3 +32,10 @@ sqlite> .import arquivo_de_import.csv core_nome_da_tabela
 
 https://django-import-export.readthedocs.io/en/latest/getting_started.html
 
+
+
+https://docs.djangoproject.com/en/2.2/ref/models/querysets/#select-related
+
+https://swapps.com/blog/quick-start-with-django-orm/
+https://docs.djangoproject.com/en/4.1/topics/db/managers/
+
