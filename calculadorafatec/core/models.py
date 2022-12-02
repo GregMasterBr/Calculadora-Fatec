@@ -144,8 +144,8 @@ class Social(models.Model):
 
 class ResultadoVestibularFatec(models.Model):
     cod_resultado_fatec = models.PositiveIntegerField(primary_key=True) 
-    cod_curso = models.IntegerField()
-    cod_instituicao = models.IntegerField()
+    cod_curso = models.IntegerField(blank=True,null=True)
+    cod_instituicao = models.IntegerField(blank=True,null=True)
     #cod_curso = models.ForeignKey(Curso, on_delete=models.SET_NULL, blank=True,null=True,)
     #cod_instituicao = models.ForeignKey(Fatec, on_delete=models.SET_NULL, blank=True,null=True,)
     ano = models.IntegerField()

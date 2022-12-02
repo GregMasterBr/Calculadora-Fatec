@@ -48,8 +48,10 @@ def detalhes_fatec(request, slug):
     cursos = Curso.objects.filter(fatec__id=fatec.id)
     socialmedia =  Social.objects.filter(Fatec_id=fatec.id)
     contatos =  Contact.objects.filter(Fatec_id=fatec.id)
-    resultados_cursos = ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre')
+    #resultados_cursos = ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id)
+    #resultados_cursos = ResultadoVestibularFatec.objects.all().order_by('-ano', '-semestre')
     #resultados_cursos.intersection(cursos).values()
+    resultados_cursos = ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre')
     print(resultados_cursos.values())
     return render(request,'detalhes-fatec.html', {'detalhe': fatec,'cursos':cursos, 'redessociais': socialmedia, 'contatos': contatos, 'resultados':resultados_cursos})   
 
