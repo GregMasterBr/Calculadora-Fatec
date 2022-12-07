@@ -167,3 +167,20 @@ class ResultadoVestibularFatec(models.Model):
 
     def __str__(self):
         return str(self.cod_resultado_fatec)
+
+class ResultadoVestibularFatec2(models.Model):
+    cod_resultado_fatec = models.PositiveIntegerField(primary_key=True) 
+    cod_curso = models.ForeignKey(Curso, on_delete=models.SET_NULL, blank=True,null=True)
+    cod_instituicao = models.ForeignKey(Fatec, on_delete=models.SET_NULL, blank=True,null=True)
+    ano = models.IntegerField()
+    semestre = models.IntegerField()
+    periodo = models.CharField(max_length=10)
+    qtde_vagas = models.IntegerField()
+    qtde_inscrito = models.IntegerField()
+    demanda = models.FloatField()
+    nota_corte = models.FloatField()
+    nota_maxima = models.FloatField()
+
+       
+    def __str__(self):
+        return str(self.cod_resultado_fatec)    

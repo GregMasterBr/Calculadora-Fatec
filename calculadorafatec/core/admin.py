@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django.conf import settings
-from calculadorafatec.core.models import Contact, Social, EixoTecnologico, Curso, Fatec, Regiao, ResultadoVestibularFatec
+from calculadorafatec.core.models import Contact, Social, EixoTecnologico, Curso, Fatec, Regiao, ResultadoVestibularFatec,ResultadoVestibularFatec2
 
 class CursoModelAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('curso',)}
@@ -62,3 +62,4 @@ admin.site.register(Regiao)
 admin.site.register(EixoTecnologico)
 admin.site.register(Curso, CursoModelAdmin)
 admin.site.register(ResultadoVestibularFatec, ResultadoVestibularFatecModelAdmin)
+admin.site.register(ResultadoVestibularFatec2)

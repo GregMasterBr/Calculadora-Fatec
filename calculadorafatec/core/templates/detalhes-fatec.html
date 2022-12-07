@@ -107,9 +107,8 @@
                       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionDemandaCursos">
                         <div class="accordion-body">
                           <strong>This is the second item's accordion body.</strong>
-                          
-                          {% for resultado in resultados %}
-                            {{ resultado }}
+                          {{ resultado2 }} 
+                          {% for resultado in resultados %}                            
                             <h4>{{resultado.cod_curso}} {{resultado.cursos.curso}} CURSO: {{ resultado.nome_curso.curso }} {{resultado.periodo}}</h4>
                             <p> {{resultado.ano}} - {{resultado.semestre}} - {{resultado.qtde_inscrito}} - {{resultado.qtde_vagas}} - {{resultado.demanda}}</p>   
                            {% endfor %}                   

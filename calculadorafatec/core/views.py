@@ -52,13 +52,32 @@ def detalhes_fatec(request, slug):
     #resultados_cursos = ResultadoVestibularFatec.objects.all().order_by('-ano', '-semestre')
     #resultados_cursos.intersection(cursos).values()
     resultados_cursos = ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre')
-    resultados_cursos2 = ResultadoVestibularFatec.objects.select_related('cursos').filter(cod_instituicao=fatec.id)
+    #resultados_cursos2 = ResultadoVestibularFatec.objects.select_related('cursos').filter(cod_instituicao=fatec.id)
+    #resultados_cursos2 = ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id).join(cod_curso=cursos.id,from={"cursos":"cursos"})
+    #resultados_cursos2 = ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id).extra(select={'curso':'SELECT curso FROM "Curso" WHERE "ResultadoVestibularFatec".cod_curso = "Curso".id'})
+    # raw_sql = """SELECT * FROM 
+
+	# (SELECT * FROM "ResultadoVestibularFatec" WHERE cod_instituicao = my_id) as "RVF" INNER JOIN  
+	# "Curso" as "C" ON "C".id = "RVF".cod_curso ;"""
+    raw_sql = """
+            SELECT RVF.*, C.curso as nomecurso FROM ResultadoVestibularFatec as RVF
+            INNER JOIN  
+            Curso as C
+            ON "RVF".cod_curso = C.id;
+            
+            """    
+
+    #resultados_cursos2 = ResultadoVestibularFatec.objects.raw(raw_sql)
+    #kwds= ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id).join(ResultadoVestibularFatec_id__in = Curso.id)
+
     #print(resultados_cursos.union(cursos))
 
-    print(resultados_cursos2.values())
+    #print(resultados_cursos2)
+    resultados_cursos2 = []
+
 
     #print(resultados_cursos.values())
-    return render(request,'detalhes-fatec.html', {'detalhe': fatec,'cursos':cursos, 'redessociais': socialmedia, 'contatos': contatos, 'resultados':resultados_cursos})   
+    return render(request,'detalhes-fatec.html', {'detalhe': fatec,'cursos':cursos, 'redessociais': socialmedia, 'contatos': contatos, 'resultados':resultados_cursos, 'resultado2' :resultados_cursos2 })   
 
 
 def cursos(request):
