@@ -105,7 +105,7 @@
                             <div class="accordion-item">
                                 <h3 class="accordion-header" id="heading{{resultado.cod_resultado_fatec}}{{resultado.cod_instituicao_id}}{{resultado.cod_curso_id}}">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{resultado.cod_resultado_fatec}}{{resultado.cod_instituicao_id}}{{resultado.cod_curso_id}}" aria-expanded="true" aria-controls="collapse{{resultado.cod_resultado_fatec}}{{resultado.cod_instituicao_id}}{{resultado.cod_curso_id}}">
-                                        #{{resultado.cod_curso_id}} {{ resultado_list.cod_curso }} - {{ resultado.periodo }} - Eixo Tecnologico{{ resultado.eixo_tecnologico }} - média demanda
+                                        #{{resultado.cod_curso_id}} {{ resultado.cod_curso }} - {{ resultado.periodo }} - Eixo Tecnologico{{ resultado.eixo_tecnologico }} - média demanda
                                     </button>
                                 </h3>
                                 <div id="collapse{{resultado.cod_resultado_fatec}}{{resultado.cod_instituicao_id}}{{resultado.cod_curso_id}}" class="accordion-collapse collapse {% if forloop.first %} show {% endif %} " aria-labelledby="headingOne" data-bs-parent="#accordionDemandaCursos">
