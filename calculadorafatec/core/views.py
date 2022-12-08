@@ -4,7 +4,7 @@ from django.urls import reverse
 #Django Messages - definida lá no settings - MESSAGES_TAG
 from django.contrib import messages
 from django.contrib.messages import constants
-from calculadorafatec.core.models import Curso, Fatec, ResultadoVestibularFatec, EixoTecnologico, Social, Contact
+from calculadorafatec.core.models import Curso, Fatec, ResultadoVestibularFatec, ResultadoVestibularFatec2, EixoTecnologico, Social, Contact
 from django.conf import settings
 from django.core.paginator import (
     Paginator,
@@ -48,35 +48,12 @@ def detalhes_fatec(request, slug):
     cursos = Curso.objects.filter(fatec__id=fatec.id)
     socialmedia =  Social.objects.filter(Fatec_id=fatec.id)
     contatos =  Contact.objects.filter(Fatec_id=fatec.id)
-    #resultados_cursos = ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id)
-    #resultados_cursos = ResultadoVestibularFatec.objects.all().order_by('-ano', '-semestre')
-    #resultados_cursos.intersection(cursos).values()
     resultados_cursos = ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre')
-    #resultados_cursos2 = ResultadoVestibularFatec.objects.select_related('cursos').filter(cod_instituicao=fatec.id)
-    #resultados_cursos2 = ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id).join(cod_curso=cursos.id,from={"cursos":"cursos"})
-    #resultados_cursos2 = ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id).extra(select={'curso':'SELECT curso FROM "Curso" WHERE "ResultadoVestibularFatec".cod_curso = "Curso".id'})
-    # raw_sql = """SELECT * FROM 
-
-	# (SELECT * FROM "ResultadoVestibularFatec" WHERE cod_instituicao = my_id) as "RVF" INNER JOIN  
-	# "Curso" as "C" ON "C".id = "RVF".cod_curso ;"""
-    raw_sql = """
-            SELECT RVF.*, C.curso as nomecurso FROM ResultadoVestibularFatec as RVF
-            INNER JOIN  
-            Curso as C
-            ON "RVF".cod_curso = C.id;
-            
-            """    
-
-    #resultados_cursos2 = ResultadoVestibularFatec.objects.raw(raw_sql)
-    #kwds= ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id).join(ResultadoVestibularFatec_id__in = Curso.id)
-
-    #print(resultados_cursos.union(cursos))
-
-    #print(resultados_cursos2)
-    resultados_cursos2 = []
+    #resultados_cursos2 = ResultadoVestibularFatec2.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre').values_list('cod_curso', 'periodo')
+    resultados_cursos2 = ResultadoVestibularFatec2.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre')
 
 
-    #print(resultados_cursos.values())
+    print(resultados_cursos2.values())
     return render(request,'detalhes-fatec.html', {'detalhe': fatec,'cursos':cursos, 'redessociais': socialmedia, 'contatos': contatos, 'resultados':resultados_cursos, 'resultado2' :resultados_cursos2 })   
 
 

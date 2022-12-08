@@ -57,9 +57,15 @@ class ResultadoVestibularFatecModelAdmin(admin.ModelAdmin):
     list_display = ['cod_resultado_fatec',	'cod_curso', 'cod_instituicao', 'ano', 'semestre', 'periodo', 'qtde_vagas', 'qtde_inscrito', 'demanda', 'nota_corte', 'nota_maxima']
     ordering = ('cod_resultado_fatec', 'semestre', 'ano')
 
+class ResultadoVestibularFatec2ModelAdmin(admin.ModelAdmin):
+    list_display = ['cod_resultado_fatec',	'cod_curso', 'cod_instituicao', 'ano', 'semestre', 'periodo', 'qtde_vagas', 'qtde_inscrito', 'demanda', 'nota_corte', 'nota_maxima']
+    ordering = ('cod_resultado_fatec', 'semestre', 'ano')
+    
+  
+
 admin.site.register(Fatec,FatecModelAdmin)
 admin.site.register(Regiao)
 admin.site.register(EixoTecnologico)
 admin.site.register(Curso, CursoModelAdmin)
 admin.site.register(ResultadoVestibularFatec, ResultadoVestibularFatecModelAdmin)
-admin.site.register(ResultadoVestibularFatec2)
+admin.site.register(ResultadoVestibularFatec2,ResultadoVestibularFatec2ModelAdmin)

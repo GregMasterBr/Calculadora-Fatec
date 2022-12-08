@@ -39,3 +39,25 @@ https://docs.djangoproject.com/en/2.2/ref/models/querysets/#select-related
 https://swapps.com/blog/quick-start-with-django-orm/
 https://docs.djangoproject.com/en/4.1/topics/db/managers/
 
+
+https://stackoverflow.com/questions/34904171/is-there-a-way-to-specify-the-order-of-creation-of-the-columns-for-an-sql-table
+Is there a way to specify the order of creation of the columns for an SQL table conception using Django?
+
+class My_table(models.Model):
+    field1 = models.CharField(primary_key=True, max_length=25)
+    field2 = models.ForeignKey(....)
+    field3 = models.IntegerField(blank=True, null=True)
+    field4 = models.CharField(max_length=2000, blank=True, null=True)
+Can give a table like :
+
+  field1 | field3 | field4 | field2  
+ --------+--------+--------+--------
+I want this :
+
+  field1 | field2 | field3 | field4  
+ --------+--------+--------+--------
+Is there a way to have this result?
+
+SOLVE:
+POST MIGRATION
+https://stackoverflow.com/questions/31698103/how-do-i-execute-raw-sql-in-a-django-migration
