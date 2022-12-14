@@ -68,7 +68,8 @@ ROOT_URLCONF = 'calculadorafatec.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        "DIRS": [BASE_DIR / "calculadorafatec" / "templates"],
+        #'DIRS': [os.path.join(BASE_DIR,'calculadorafatec/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -148,10 +149,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'templates/static'),)
-STATIC_ROOT = os.path.join('static')
+#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'templates/static'),)
+STATICFILES_DIRS = [
+    BASE_DIR / "calculadorafatec" / "static",
+]
+#STATIC_ROOT = os.path.join('static')
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / "media"
+
 MEDIA_URL = '/media/'
 
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10000000 #(para sair do padrão de 2.5MB do inMemory para armazenar até 10MB)
