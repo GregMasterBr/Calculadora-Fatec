@@ -69,3 +69,5 @@ admin.site.register(EixoTecnologico)
 admin.site.register(Curso, CursoModelAdmin)
 admin.site.register(ResultadoVestibularFatec, ResultadoVestibularFatecModelAdmin)
 admin.site.register(ResultadoVestibularFatec2,ResultadoVestibularFatec2ModelAdmin)
+
+admin.site.site_header = 'Administração da Calculadora Fatec'
