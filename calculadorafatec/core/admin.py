@@ -70,4 +70,9 @@ admin.site.register(Curso, CursoModelAdmin)
 admin.site.register(ResultadoVestibularFatec, ResultadoVestibularFatecModelAdmin)
 admin.site.register(ResultadoVestibularFatec2,ResultadoVestibularFatec2ModelAdmin)
 
-admin.site.site_header = 'Administração da Calculadora Fatec'
+
+
+
+admin.site.site_header = 'Administração da Calculadora Fatec'                # default: "Django Administration"
+#admin.site.index_title = 'Administração do Site'                 # default: "Site administration"
+#admin.site.site_title = 'HTML title from adminsitration'            # default: "Django site admin"
