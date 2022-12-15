@@ -19,18 +19,20 @@
     <hr class="my-4" />
     <div class="row">    
         <div class="col-12 bg-light m-3 p-5 ">
-            <div class="input-group input-group-lg">
-                <select class="form-select" id="cursos" name="cod_curso" aria-label="Example select with button addon">
-                  <option selected>Escolha um curso...</option>
-                    {% for curso in cursos %}
-                        <!-- {{forloop.counter}} -->
-                        <option value="{{curso.id}}">{{curso}}</option>
-                    {% empty %}
-                        <option value="0">Não tem nenhum curso disponível</option>                        
-                    {% endfor %}  
-                </select>
-                <button class="btn  btn-primary" type="button">Analisar Curso</button>
-              </div>
+            <form  action="{% url 'busca_slug_curso' %}" method="GET" enctype="multipart/form-data"> {% csrf_token %}
+                <div class="input-group input-group-lg">
+                    <select class="form-select" id="cursos" name="cod_curso" aria-label="Example select with button addon">
+                        <option selected value="0">Escolha um curso...</option>
+                        {% for curso in cursos %}
+                            <!-- {{forloop.counter}} -->
+                            <option value="{{curso.id}}">{{curso}}</option>
+                        {% empty %}
+                            <option value="0">Não tem nenhum curso disponível</option>                        
+                        {% endfor %}  
+                    </select>
+                    <input type="submit" class="btn btn-primary" value="Analisar Curso" />                    
+                </div>
+            </form>
         </div>
     </div>
 </div>

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %} 
+    <meta name="description" content="Calculadora Fatec é uma ferramenta para auxiliar candidatos a ingressarem nas instituições Fatecs. Armazenamos todas as demandas e notas de cortes dos vestibulares e expertize para conduzir um melhor resultado para o vestibular. Por isso, Calculadora Fatec, quem usa, sabe. Assine agora o serviço e se aproxime do seu objetivo em ser um aluno da Fatec. VEM PRA FATEC! Os candidatos podem usar a ferramenta para Calcular a Nota do Vestibular, Consultar os Guias de Fatecs e Cursos e prepare-se melhor para o exame do Vestibular.">
+{% endblock %}
+
+{% block 'title' %}Análise Curso: {% endblock %}
+
+{% block 'body' %}
+    
+<div class="container">    
+    <div class="py-5 text-center text-light ">
+        <img class="img-fluid d-block mx-auto mb-4" width="500px" src="{{detalhe.imagem}}" alt=""  title="Fachada da {{detalhe.fatec}}"/>
+        <h1>Conheça o curso {{ detalhe.curso }} </h1>
+        <p class="lead">
+            Consulte informações pertinentes ao curso desejado. Tire suas dúvidas e faça uma escolha assertiva.
+        </p>
+    </div>    
+    <hr class="my-4" />
+    <div class="row">    
+        <div class="col-12 bg-light m-3 p-5 ">
+            <section class="my-1">
+                <h2>Eixo Tecnológico: {{ detalhe.eixo_tecnologico }}</h2>
+                <h3><a href="{% url 'materias-prova-peso2' %}" target="_blank" >Matérias com peso 2</a>: {{ detalhe.get_materia_1_display|title  }} e {{ detalhe.get_materia_2_display|title  }}</h3>
+            </section>            
+            <section class="my-1">
+                <h2><img src="{% static 'core/img/1.png' %}" alt="Visão Geral"  /> Visão geral</h2>
+                <p>
+                    {{ detalhe.curso }}
+                </p>
+            </section>
+            <section class="my-1">
+                <h2><img src="{% static 'core/img/2.png' %}" alt="O aluno estuda"  /> O que o aluno estuda</h2>
+                <p>
+                    {{ detalhe.conteudo_estudo }}
+                </p>                
+            </section>
+            <section class="my-1">
+                <h2><img src="{% static 'core/img/3.png' %}" alt="O profissional faz"  /> O que o profissional faz</h2>
+                <p>
+                    {{ detalhe.profissional_faz }}
+                </p>                   
+            </section>
+            
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Well done!</h4>
+                <p>O tecnólogo em Agroindústria está focado no processamento de produtos agrícolas, enquanto o tecnólogo em Agronegócio cuida da gestão das empresas ligadas à produção de bens ou serviços oriundos da produção agrícola. O curso de Agroindústria é novo nas Fatecs. A primeira turma se formou no segundo semestre de 2014.</p>
+            </div>
+
+            <section class="my-1">
+                <h2><img src="{% static 'core/img/4.png' %}" alt="Onde trabalhar"  /> Onde trabalhar</h2>
+                <p>
+                    {{ detalhe.mercado_trabalho }}
+                </p>                      
+            </section>                                    
+            
+            <section class="my-1">
+                <h2><img src="{% static 'core/img/5.png' %}" alt="Onde estudar"  /> Onde estudar</h2>
+                <ul>
+                    {% for fatec in fatecs %}
+                    <li><a href="{% url 'detalhes_fatec' fatec.slug %}" class="{{ fatec.id }}">{{fatec}}</a></li>
+                    {% empty %}
+                        <li>Não é oferecido em nenhuma instituição</li>                        
+                    {% endfor %}                     
+                </ul>                
+            </section>               
+            
+            <div class="alert alert-danger" role="alert">
+                <strong>Atenção!</strong> A cada processo seletivo é preciso conferir quais os cursos oferecidos em cada unidade.
+              </div>
+            
+            <section class="my-1">
+                <h2><img src="{% static 'core/img/6.png' %}" alt="Outros cursos de interesse"  /> Talvez você possa se interessar também por: </h2>
+
+            </section> 
+            
+            <a class="w-100 btn btn-primary" type="button" href="{%url 'cursos' %}">Analisar outro curso</a>
+
+        </div>
+    </div>            
+</div>
+
+{% endblock %}

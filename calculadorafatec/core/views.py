@@ -54,8 +54,23 @@ def detalhes_fatec(request, slug):
 
 
     print(resultados_cursos2.values())
-    return render(request,'detalhes-fatec.html', {'detalhe': fatec,'cursos':cursos, 'redessociais': socialmedia, 'contatos': contatos, 'resultados':resultados_cursos, 'resultado2' :resultados_cursos2 })   
+    return render(request,'detalhes-fatec.html', {
+        'detalhe': fatec,'cursos':cursos, 
+        'redessociais': socialmedia, 'contatos': contatos, 
+        'resultados':resultados_cursos, 'resultado2' :resultados_cursos2 
+        })   
 
+def busca_slug_curso(request):
+    id = request.GET.get('cod_curso')
+    if id != "0":
+        curso = get_object_or_404(Curso, id=id) #capturar a excessão aqui
+        return redirect('detalhes_curso', curso.slug)    
+    return redirect('cursos')    
+
+def detalhes_curso(request, slug):
+    curso = get_object_or_404(Curso, slug=slug) 
+    fatecs = Fatec.objects.filter(cursos=curso.id)
+    return render(request,'detalhes-curso.html', {'detalhe': curso,'fatecs':fatecs })   
 
 def cursos(request):
     #cursos = ['Análise e Desenvolvimento de Sistemas', 'Sistemas para Internet' , 'Desenvolvimento Multiplataforma', 'Ciência de Dados', 'Sistemas Navais']

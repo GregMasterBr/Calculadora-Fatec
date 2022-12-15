@@ -29,6 +29,9 @@ urlpatterns = [
     #path('detalhes-fatec/<int:id>', views.detalhes_fatec, name="detalhes_fatec"),
     path('detalhes-fatec/<slug:slug>/', views.detalhes_fatec, name="detalhes_fatec"),
     #path('detalhes-fatec/', views.detalhes_fatec, name="detalhes_fatec"),
+    path('busca-slug-curso/', views.busca_slug_curso, name="busca_slug_curso"), # intermediária. Usava para capturar o slug
+    path('detalhes-curso/<slug:slug>/', views.detalhes_curso, name="detalhes_curso"),
+
     path('contato/', views.contato, name='contato'),
     path('logout/', views.logout, name='logout'),
 ]

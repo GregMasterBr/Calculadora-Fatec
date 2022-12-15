@@ -150,7 +150,7 @@
                     <h3>Cursos Superiores de Tecnologia Presenciais</h3>
                     <ul>
                         {% for curso in cursos %}
-                        <li><a href="detalhes-curso/{{curso.slug}}" class="{{ curso.id }}">{{curso}}</a> <span class="badge bg-info">{{curso.eixo_tecnologico}}</span></li>
+                        <li><a href="{% url 'detalhes_curso' curso.slug %}" class="{{ curso.id }}">{{curso}}</a> <span class="badge bg-info">{{curso.eixo_tecnologico}}</span></li>
                         {% empty %}
                             <li>Não tem nenhum curso disponível</li>                        
                         {% endfor %} 
