@@ -96,22 +96,18 @@
             <section class="my-5 ">
                 <h2>Demandas</h2>
                 <div class="accordion px-3" id="accordionDemandaCursos">
-                    {% regroup resultado2 by cod_curso_id as resultado_agrupado_por_cod_curso_list %}
-        
-                    {% for resultado_list in resultado_agrupado_por_cod_curso_list %}           
-                        <b class="d-none-">GROUPER: {{ resultado_list.grouper }}</b><br/>
-                        <b class="d-none-">ITEMS: {{ resultado_list.list}}</b>
+                    {% regroup resultado2 by cod_curso_id as resultado2_list %}
+
+                    {% for resultado_list in resultado2_list %}           
+                        <b>GROUPER: {{ resultado_list.grouper }}</b><br/>
+                        <b>ITEMS: {{ resultado_list.list}}</b>
                         {% for resultado in resultado_list.list %}
-                            <br />RESULTADO: {{ resultado }}
-                            <br />LIST: {{ resultado.list }}
-                            <br />CONTEUDO LIST: {{ resultado.list }}
                             <div class="accordion-item">
                                 <h3 class="accordion-header" id="heading{{resultado.cod_resultado_fatec}}{{resultado.cod_instituicao_id}}{{resultado.cod_curso_id}}">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{resultado.cod_resultado_fatec}}{{resultado.cod_instituicao_id}}{{resultado.cod_curso_id}}" aria-expanded="true" aria-controls="collapse{{resultado.cod_resultado_fatec}}{{resultado.cod_instituicao_id}}{{resultado.cod_curso_id}}">
                                         #{{resultado.cod_curso_id}} {{ resultado.cod_curso }} - {{ resultado.periodo }} - Eixo Tecnologico{{ resultado.eixo_tecnologico }} - média demanda
                                     </button>
                                 </h3>
-
                                 <div id="collapse{{resultado.cod_resultado_fatec}}{{resultado.cod_instituicao_id}}{{resultado.cod_curso_id}}" class="accordion-collapse collapse {% if forloop.first %} show {% endif %} " aria-labelledby="headingOne" data-bs-parent="#accordionDemandaCursos">
                                     <div class="accordion-body">
                                         <div class="table-responsive">
@@ -125,28 +121,17 @@
                                                         <th>DEMANDA</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>  
-                                                {% regroup resultado_agrupado_por_cod_curso_list by periodo as resultado_agrupado_por_periodo %}
-                                                {% for a1 in resultado_agrupado_por_periodo %}    
-                                                    {% for a2 in a1.list %}
-                                                        {% for demanda in  a2.list %}
-                                                        {{demanda.cod_curso}}
-                                                            <tr>			
-                                                                <td>{{ demanda.ano }}</td><td>{{ demanda.semestre }}</td><td>{{ demanda.qtde_vagas }}</td><td>{{ demanda.qtde_inscrito }}</td><td>{{ demanda.demanda }}</td>
-                                                            </tr>
-                                                        {% empty %}
-                                                            <tr>
-                                                                <td colspan="5">Não tem nenhum curso disponível</td>
-                                                            </tr>    
-                                                        {% endfor %} 
-                                                    {% endfor %}  
-                                                {% endfor %}  
-                                                                                                   
+                                                <tbody>   
+                                                    <tr >			
+                                                        <td>{{ resultado.ano }}</td><td>{{ resultado.semestre }}</td><td>{{ resultado.qtde_vagas }}</td><td>{{ resultado.qtde_inscrito }}</td><td>{{ resultado.demanda }}</td>
+                                                    </tr>                                                    
                                                 </tbody>
                                             </table>
                                         </div>                          
                                     </div>
-                                </div>                                
+                                </div>
+
+                              
                             </div>                    
                       {% endfor %}
                    {% endfor %}                     

@@ -96,10 +96,11 @@
             <section class="my-5 ">
                 <h2>Demandas</h2>
                 <div class="accordion px-3" id="accordionDemandaCursos">
-                    {% regroup resultado2 by cod_curso_id as resultado_agrupado_por_cod_curso_list %}
+                    {% regroup resultado2 by cod_curso_id as resultado_agrupado_porcod_curso_list %}
+                    {% regroup resultado_agrupado_porcod_curso_list by periodo as resultado_agrupado_por_periodo %}
         
-                    {% for resultado_list in resultado_agrupado_por_cod_curso_list %}           
-                        <b class="d-none-">GROUPER: {{ resultado_list.grouper }}</b><br/>
+                    {% for resultado_list in resultado_agrupado_por_periodo %}           
+                        <b class="data-adapt-container-width">GROUPER: {{ resultado_list.grouper }}</b><br/>
                         <b class="d-none-">ITEMS: {{ resultado_list.list}}</b>
                         {% for resultado in resultado_list.list %}
                             <br />RESULTADO: {{ resultado }}
@@ -126,22 +127,16 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>  
-                                                {% regroup resultado_agrupado_por_cod_curso_list by periodo as resultado_agrupado_por_periodo %}
-                                                {% for a1 in resultado_agrupado_por_periodo %}    
-                                                    {% for a2 in a1.list %}
-                                                        {% for demanda in  a2.list %}
-                                                        {{demanda.cod_curso}}
-                                                            <tr>			
-                                                                <td>{{ demanda.ano }}</td><td>{{ demanda.semestre }}</td><td>{{ demanda.qtde_vagas }}</td><td>{{ demanda.qtde_inscrito }}</td><td>{{ demanda.demanda }}</td>
-                                                            </tr>
-                                                        {% empty %}
-                                                            <tr>
-                                                                <td colspan="5">Não tem nenhum curso disponível</td>
-                                                            </tr>    
-                                                        {% endfor %} 
-                                                    {% endfor %}  
-                                                {% endfor %}  
-                                                                                                   
+                                                {% for demanda in  resultado.list %}
+                                                {{demanda.cod_curso}}
+                                                    <tr>			
+                                                        <td>{{ demanda.ano }}</td><td>{{ demanda.semestre }}</td><td>{{ demanda.qtde_vagas }}</td><td>{{ demanda.qtde_inscrito }}</td><td>{{ demanda.demanda }}</td>
+                                                    </tr>
+                                                {% empty %}
+                                                    <tr>
+                                                        <td colspan="5">Não tem nenhum curso disponível</td>
+                                                    </tr>    
+                                                {% endfor %}                                                    
                                                 </tbody>
                                             </table>
                                         </div>                          

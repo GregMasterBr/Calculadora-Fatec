@@ -27,7 +27,7 @@
             <section class="my-1">
                 <h2><img src="{% static 'core/img/1.png' %}" alt="Visão Geral"  /> Visão geral</h2>
                 <p>
-                    {{ detalhe.curso }}
+                    {{ detalhe.visao_geral }}
                 </p>
             </section>
             <section class="my-1">
@@ -44,8 +44,8 @@
             </section>
             
             <div class="alert alert-success" role="alert">
-                <h4 class="alert-heading">Well done!</h4>
-                <p>O tecnólogo em Agroindústria está focado no processamento de produtos agrícolas, enquanto o tecnólogo em Agronegócio cuida da gestão das empresas ligadas à produção de bens ou serviços oriundos da produção agrícola. O curso de Agroindústria é novo nas Fatecs. A primeira turma se formou no segundo semestre de 2014.</p>
+                <h4 class="alert-heading">Destaque</h4>
+                <p> {{ detalhe.destaque }}</p>
             </div>
 
             <section class="my-1">
@@ -72,7 +72,11 @@
             
             <section class="my-1">
                 <h2><img src="{% static 'core/img/6.png' %}" alt="Outros cursos de interesse"  /> Talvez você possa se interessar também por: </h2>
-
+                <ul>                    
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                </ul>
             </section> 
             
             <a class="w-100 btn btn-primary" type="button" href="{%url 'cursos' %}">Analisar outro curso</a>
