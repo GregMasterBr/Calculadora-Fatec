@@ -50,7 +50,7 @@ def detalhes_fatec(request, slug):
     contatos =  Contact.objects.filter(Fatec_id=fatec.id)
     resultados_cursos = ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre')
     #resultados_cursos2 = ResultadoVestibularFatec2.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre').values_list('cod_curso', 'periodo')
-    resultados_cursos2 = ResultadoVestibularFatec2.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre')
+    resultados_cursos2 = ResultadoVestibularFatec2.objects.filter(cod_instituicao=fatec.id).order_by('cod_curso_id','periodo','-ano', '-semestre')
 
 
     print(resultados_cursos2.values())
