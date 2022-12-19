@@ -52,12 +52,39 @@ def detalhes_fatec(request, slug):
     #resultados_cursos2 = ResultadoVestibularFatec2.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre').values_list('cod_curso', 'periodo')
     resultados_cursos2 = ResultadoVestibularFatec2.objects.filter(cod_instituicao=fatec.id).order_by('cod_curso_id','periodo','-ano', '-semestre')
 
+    demanda = {}
 
-    print(resultados_cursos2.values())
+    for resultado in resultados_cursos2:        
+        r = {}
+        curso_periodo_key = '_'.join([str(resultado.cod_curso),resultado.periodo])
+        
+        if curso_periodo_key not in demanda:
+            demanda[curso_periodo_key] = []            
+              
+        if curso_periodo_key in demanda:
+            r = {
+                "curso": str(resultado.cod_curso),
+                "id_curso": resultado.cod_curso_id,
+                "periodo": resultado.periodo,
+                "ano": resultado.ano,
+                "semestre":resultado.semestre,
+                "qtde_vagas": resultado.qtde_vagas,
+                "qtde_inscrito": resultado.qtde_inscrito,
+                "demanda": resultado.demanda,
+                "nota_corte":resultado.nota_corte,
+                "nota_maxima":resultado.nota_maxima                
+            }
+           # aux = demanda[curso_periodo_key]
+                   
+    
+            demanda[curso_periodo_key].append(r)
+    print(demanda)
+    for key, value in demanda.items():
+        print((value))
     return render(request,'detalhes-fatec.html', {
         'detalhe': fatec,'cursos':cursos, 
         'redessociais': socialmedia, 'contatos': contatos, 
-        'resultados':resultados_cursos, 'resultado2' :resultados_cursos2 
+        'resultados':resultados_cursos, 'resultado2' :resultados_cursos2, "demandasCursos":  demanda
         })   
 
 def busca_slug_curso(request):
