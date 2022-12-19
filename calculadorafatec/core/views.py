@@ -56,7 +56,7 @@ def detalhes_fatec(request, slug):
 
     for resultado in resultados_cursos2:        
         r = {}
-        curso_periodo_key = '_'.join([str(resultado.cod_curso),resultado.periodo])
+        curso_periodo_key = ' - '.join([str(resultado.cod_curso),resultado.periodo])
         
         if curso_periodo_key not in demanda:
             demanda[curso_periodo_key] = []            
