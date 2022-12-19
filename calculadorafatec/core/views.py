@@ -44,16 +44,13 @@ def busca_slug_fatec(request):
 def detalhes_fatec(request, slug):
     fatec = get_object_or_404(Fatec, slug=slug)   
     fatec.imagem = f'{settings.MEDIA_URL}{fatec.imagem}'
-    todos_cursos = Curso.objects.all()
     cursos = Curso.objects.filter(fatec__id=fatec.id)
     socialmedia =  Social.objects.filter(Fatec_id=fatec.id)
     contatos =  Contact.objects.filter(Fatec_id=fatec.id)
     resultados_cursos = ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre')
     #resultados_cursos2 = ResultadoVestibularFatec2.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre').values_list('cod_curso', 'periodo')
     resultados_cursos2 = ResultadoVestibularFatec2.objects.filter(cod_instituicao=fatec.id).order_by('cod_curso_id','periodo','-ano', '-semestre')
-
     demanda = {}
-
     for resultado in resultados_cursos2:        
         r = {}
         curso_periodo_key = ' - '.join([str(resultado.cod_curso),resultado.periodo])
@@ -74,17 +71,16 @@ def detalhes_fatec(request, slug):
                 "nota_corte":resultado.nota_corte,
                 "nota_maxima":resultado.nota_maxima                
             }
-           # aux = demanda[curso_periodo_key]
-                   
-    
             demanda[curso_periodo_key].append(r)
-    print(demanda)
-    for key, value in demanda.items():
-        print((value))
+    
+    # print(demanda)
+    # for key, value in demanda.items():
+    #     print((value))
+        
     return render(request,'detalhes-fatec.html', {
         'detalhe': fatec,'cursos':cursos, 
         'redessociais': socialmedia, 'contatos': contatos, 
-        'resultados':resultados_cursos, 'resultado2' :resultados_cursos2, "demandasCursos":  demanda
+        'resultados':resultados_cursos, "demandasCursos":  demanda
         })   
 
 def busca_slug_curso(request):
