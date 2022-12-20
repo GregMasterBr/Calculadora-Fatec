@@ -34,8 +34,11 @@ A versão desenvolvida em **PHP** pode ser vista em: <https://calculadorafatec.g
     - [ ] Cadastrar informações do curso  
     - [x] Detalhes e informações sobre o curso  
     - [ ]  Trazer relação de cursos semelhantes que o aluno possa se interessar  
-- [ ] Página de desempenho - nota de corte  
+- [x] Página nota de corte  
+    - [x] Página de seleção de dados - Consulta por Fatec e Fatec Curso. Lógica atribuída ao JS e rota no python
+    - [x] Página de detalhes dos dados considerando filtro enviado
 - [ ] Página de simulados   
+
 ***
 <br />
 
