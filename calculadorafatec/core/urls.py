@@ -31,6 +31,8 @@ urlpatterns = [
     path('detalhes-curso/<slug:slug>/', views.detalhes_curso, name="detalhes_curso"),
     path('nota-de-corte/', views.nota_de_corte, name='nota-de-corte'),
     path('detalhes-nota-de-corte/', views.detalhes_nota_de_corte, name='detalhes-nota-de-corte'),
+    path('busca-cursos-da-fatec/', views.busca_cursos_da_fatec, name='busca-cursos-da-fatec'),
+
     path('contato/', views.contato, name='contato'),
     path('logout/', views.logout, name='logout'),
 ]

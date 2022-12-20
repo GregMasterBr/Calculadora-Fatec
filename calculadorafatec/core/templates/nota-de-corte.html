@@ -14,7 +14,7 @@
         <img class="d-block mx-auto mb-4" src="{% static 'core/img/calculadora.png' %}" alt="" />
         <h1 class="display-5 fw-bold text-dark">Pesquisa da Nota de Corte</h1>       
         <div class="col-lg-6 mx-auto">
-          <form  action="{% url 'detalhes-nota-de-corte' %}" method="GET" enctype="multipart/form-data"> {% csrf_token %}
+          <form  action="{% url 'detalhes-nota-de-corte' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
             <div class="input-group input-group-lg my-3">
                 <select class="form-select" id="fatecs" name="cod_fatec">
                     <option selected value="0">Escolha uma instituição...</option>
@@ -29,12 +29,6 @@
             <div class="input-group input-group-lg my-3">
               <select class="form-select" id="cursos" name="cod_curso" disabled="disabled"  aria-label="Example select with button addon">
                   <option selected value="0">Escolha um curso...</option>
-                  {% for curso in cursos %}
-                      <!-- {{forloop.counter}} -->
-                      <option value="{{curso.id}}">{{curso}}</option>
-                  {% empty %}
-                      <option value="0">Não tem nenhum curso disponível</option>                        
-                  {% endfor %}  
               </select>
             </div>            
             <input type="submit" class="btn w-100 btn-primary my-3 btn-lg" value="Analisar nota de corte" />            
@@ -42,8 +36,9 @@
         </div>
     </div>  
     <hr class="my-4" />
-
-
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
+<script src="{% static 'core/js/filtrar-curso-fatec.js' %}" ></script>
 
 {% endblock %}

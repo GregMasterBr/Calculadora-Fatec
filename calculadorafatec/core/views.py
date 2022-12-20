@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 #Django Messages - definida lá no settings - MESSAGES_TAG
@@ -11,7 +11,8 @@ from django.core.paginator import (
     EmptyPage,
     PageNotAnInteger,
 )
-
+from django.core import serializers
+import json
 
 def home(request):
     #fatecs = []
@@ -160,10 +161,19 @@ def nota_de_corte(request):
 
 
 def detalhes_nota_de_corte(request):    
+    fatec_id = request.POST.get('cod_fatec')
+    if fatec_id == "0":
+        return redirect('nota-de-corte')        
 
-    fatec_id = request.GET.get('cod_fatec')
+    curso_id = request.POST.get('cod_curso')
     fatec = get_object_or_404(Fatec, id=fatec_id)  
+
+    
     resultados_cursos2 = ResultadoVestibularFatec2.objects.filter(cod_instituicao=fatec_id).order_by('cod_curso_id','periodo','-ano', '-semestre')
+    
+    if curso_id != "0":
+        resultados_cursos2 = resultados_cursos2.filter(cod_curso=curso_id)
+
     demanda = {}
     for resultado in resultados_cursos2:        
         r = {}
@@ -188,6 +198,17 @@ def detalhes_nota_de_corte(request):
             demanda[curso_periodo_key].append(r)    
     return render(request,'detalhes-nota-de-corte.html', {"fatec":fatec, "demandasCursos":  demanda})
 
+
+def busca_cursos_da_fatec(request):    
+    id = request.POST.get('fatec_id')    
+    cursos = Curso.objects.filter(fatec__id=id)
+    cursos_json = json.loads(serializers.serialize('json',cursos))
+    cursos_json_completo = [{'fields': curso['fields'],'id': curso['pk'], 'curso': curso['fields']['curso']} for curso in cursos_json]
+    cursos_json = [{'id': curso['pk'], 'curso': curso['fields']['curso']} for curso in cursos_json]
+    print(cursos_json)
+    data = {'cursos':cursos_json,}
+    return JsonResponse(data)
+    
 
 def logout(request):
     request.session.flush()
