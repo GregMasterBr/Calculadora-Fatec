@@ -5,21 +5,35 @@ Construção da Plataforma Calculadora Fatec em versão Python.
 [x] Estrutura base do projeto  
 [x] Rotas (Home e funcionalidades)   
 [x] Instalação do boostrap v5 no base.html  
-[x] Página da calculadora fatec
+[x] Página da calculadora fatec - Home
+[x] Página da ferramenta calculadora fatec
+    [x] Replica do layout
+    [x] Separado o conteúdo em includes
+    [x] funcionalidade da lógica de cálculo via JS
 [x] Página matérias de peso 2
+    [x] Listagem das matérias de peso 2 por curso
+    [x] Filtro de pesquisa por nome do curso
+    [x] Filtro de pesquisa por eixo tecnologico
     [/] Criar o filtro de quantos itens será exibido na tabela
-[x] Página escolha da Instituição  
-[/] Página Detalhes Instituição  
+    [x] Mecanimo de paginação dos resultados
+    [/] Lógica para filtrar itens do pesquise por nome curso sem considerar a acentuação e capslock
+[x] Página escolha da Instituição      
+    [x] Lógica para buscar e rederizar do ID para o Slug 
+[x] Página Detalhes Instituição  
     [x] Trazer as listas de cursos ofertados na unidade    
     [x] Trazer todos os endereços sociais (facebook, ...)  
     [x] Trazer todos as formas de contato (email, telefone e whatsapp)      
-    [] Demanda dos cursos - criar relacionamento com o resultado
+    [x] Demanda dos cursos - criar relacionamento com o resultado para exibir tabela com  as demandas
+        [x] Lógica de Demanda (Resultados)
+        [x] Layout para exibir as demandas no template
 [x] Página escolha do curso
-[] Página Detalhes Curso
-    []...
-[] Layout para exibir as demandas  
-    []...
-[] Lógica de Demanda (Resultados)
+    [x] Lógica para buscar e rederizar do ID para o Slug 
+[/] Página Detalhes Curso
+    [x] Adicionado os campos na model
+    [-] Cadastrar informações do curso
+    [x] Detalhes e informações sobre o curso
+    []  Trazer relação de cursos semelhantes que o aluno possa se interessar
+
 
 Para fazer import via linha de comando do sqllite
 * Baixar o executável: (sqlite3.exe)[https://www.sqlite.org/download.html] (sqlite-tools-win32-x86-3400000.zip)
