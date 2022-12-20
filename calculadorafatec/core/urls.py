@@ -21,9 +21,7 @@ urlpatterns = [
     path('calculadora/', views.calculadora, name='calculadora'),
     path('materias-prova-peso2/', views.materias_prova_peso2, name='materias-prova-peso2'),
     path('materias-prova-peso2-com-js/', views.materias_prova_peso2_com_js, name='materias-prova-peso2-com-js'),
-
     path('cursos/', views.cursos, name='cursos'),
-    
     path('fatecs/', views.fatecs, name='fatecs'),
     path('busca-slug-fatec/', views.busca_slug_fatec, name="busca_slug_fatec"), # intermediária. Usava para capturar o slug
     #path('detalhes-fatec/<int:id>', views.detalhes_fatec, name="detalhes_fatec"),
@@ -31,7 +29,8 @@ urlpatterns = [
     #path('detalhes-fatec/', views.detalhes_fatec, name="detalhes_fatec"),
     path('busca-slug-curso/', views.busca_slug_curso, name="busca_slug_curso"), # intermediária. Usava para capturar o slug
     path('detalhes-curso/<slug:slug>/', views.detalhes_curso, name="detalhes_curso"),
-
+    path('nota-de-corte/', views.nota_de_corte, name='nota-de-corte'),
+    path('detalhes-nota-de-corte/', views.detalhes_nota_de_corte, name='detalhes-nota-de-corte'),
     path('contato/', views.contato, name='contato'),
     path('logout/', views.logout, name='logout'),
 ]

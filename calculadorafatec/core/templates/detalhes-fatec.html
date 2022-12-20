@@ -56,7 +56,7 @@
             <section class="my-5">
                 <h2>Demandas</h2>
                 <div class="accordion px-3" id="accordionDemandaCursos">
-                    {% for key, value in demandasCursos.items %}                            
+                    {% for key, row_value in demandasCursos.items %}                            
                     <div class="accordion-item">
                         <h3 class="accordion-header" id="heading{{ forloop.counter0 }}">
                           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter0 }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter0 }}">
@@ -77,7 +77,7 @@
                                           </tr>
                                       </thead>
                                       <tbody>      
-                                        {%for resultado in value %}                                    
+                                        {%for resultado in row_value %}                                    
                                             <tr>			
                                                 <td>{{ resultado.ano }}</td><td>{{ resultado.semestre }}</td><td>{{ resultado.qtde_vagas }}</td><td>{{ resultado.qtde_inscrito }}</td><td>{{ resultado.demanda }}</td>
                                             </tr>  
@@ -92,21 +92,6 @@
                    {% endfor %}                     
                 </div>
             </section>
-
-            <section class="my-5 d-none">
-                <h2>Demandas</h2>
-                <ul>
-                    {% for key, value in demandasCursos.items %}                        
-                        <li>{{ key }}</li>
-                        <ul>
-                            {%for demanda in value %}
-                                <li> {{ demanda }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endfor %}   
-                </ul>
-
-            </section>            
 
             <div class="input-group input-group-lg">                
                 <div class="cursos">
@@ -133,12 +118,6 @@
 </div>
 
    {% comment "A fazer" %}
-    <ul>
-        <li>Trazer todos os endereços sociais (facebook, ...)</li>
-        <li>Trazer todos as formas de contato (email, telefone e whatsapp)</li>
-        <li>Trazer as listas de cursos ofertados na unidade</li>
-        <li>Demanda dos cursos - criar relacionamento e model</li>
-        <li>Layout para exibir as demandas</li>
-    </ul>
+        Exemplo de comentário
     {% endcomment %}
 {% endblock %}

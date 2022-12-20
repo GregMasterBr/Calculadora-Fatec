@@ -1,5 +1,9 @@
+{% load static %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-nav">
-    <div class="container-fluid">
+    <div class="container">
+      <a href="{% url 'home' %}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <img class="my-2" src="{% static 'core/img/calculadora.png' %}" alt=""   height="32" role="img" />
+      </a>      
       <a class="navbar-brand" href="{% url 'home' %}">CALCULADORA FATEC</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -19,7 +23,7 @@
               <li><a class="dropdown-item" href="{% url 'cursos' %}">Cursos</a></li> 
               <li><a class="dropdown-item" href="{% url 'materias-prova-peso2' %}">Matérias de peso 2 por curso</a></li>     
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Nota de Corte</a></li>
+              <li><a class="dropdown-item" href="{% url 'nota-de-corte' %}">Nota de Corte</a></li>
               <li><a class="dropdown-item" href="#">Simulados</a></li>
             </ul>
 
