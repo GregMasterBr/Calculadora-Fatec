@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'calculadorafatec.simulados',
 ]
 
 SITE_ID = 1

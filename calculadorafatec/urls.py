@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls ),
     path('accounts/', include('allauth.urls')),
     path('', include('calculadorafatec.core.urls')),
-
+    path('simulados/', include('calculadorafatec.simulados.urls')),
 ]
 
 
