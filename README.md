@@ -41,12 +41,14 @@ A versão desenvolvida em **PHP** pode ser vista em: <https://calculadorafatec.g
     - [x] Página de detalhes dos dados considerando filtro enviado  
 - [ ] Página de simulados   
     - [ ] Criar uma nova app  
+    - [ ] Criar maneira de realizar um simulado
+        - [ ] 
 - [ ] Histórico  do Vestibular
     - [ ] Edição - Ano, Semestre, Data da prova, Formato (Prova, Análise de Histórico Escolar), Edital (arquivo), Prova(arquivo), Gabarito Prova (arquivo), Quantidade de questões anuladas, Quantidade de Inscritos, Quantidade de Vagas, Demanda, Quantas Fatecs, Quantos Cursos, 
 - [ ] Provas do Vestibular    
     - [ ] Arquivo
-    - Ano, Semestre
-    - Banco de questões informatizadas (será usada para os simulados)
+    - [ ] Ano, Semestre
+    - [ ] Banco de questões informatizadas (será usada para os simulados)
 ***
 <br />
 

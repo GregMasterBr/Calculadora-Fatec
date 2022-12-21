@@ -8,14 +8,67 @@
 {% block 'title' %}Simulados: Calculadora FATEC::Quem Usa, SABE! {% endblock %}
 
 {% block 'body' %}
-<div class="container">
-    <h1>Simulados da Calculadora Fatec</h1>
-    <hr style="background-color: gray;" />
+<div class="container">    
+    <div class="px-4 py-5 my-5 text-center bg-body rounded shadow-sm ">
+        <img class="d-block mx-auto mb-4" src="{% static 'core/img/calculadora.png' %}" alt="" />
+        <h1 class="display-5 fw-bold text-dark">Simulados da Calculadora Fatec</h1>      
+        <p>
+            Defina como deseja preparar o seu simulado para continuar o seus estudos.
+        </p> 
+        <div class="col-lg-6 mx-auto">
+            <form  action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                <div class="input-group input-group-lg my-3">
+                    <select class="form-select" id="fatecs" name="cod_curso" required="required">
+                        <option selected value="0">Escolha o curso...</option>
+                            {% for curso in cursos %}
+                                <option value="{{curso.id}}">{{curso}}</option>
+                            {% empty %}
+                                <option value="0">Não tem nenhum curso disponível</option>                        
+                            {% endfor %}                  
+                    </select>                
+                </div>    
+                <div class="input-group input-group-lg my-3">
+                    <select class="form-select" name="prova_vestibular" id="prova_vestibular" required="required">
+                        <option value="0">Selecione a prova do vestibular</option>
 
-    <img src="{% static 'core/img/video_bg.jpg' %}" width="500" alt="" title=""/>
+                        <optgroup label="Simulados Gratuitos">
+                          <option value="12009">1º Semestre - 2009</option>
+                          <option value="22009">2º Semestre - 2009</option>                          
+                        </optgroup>
+                         <optgroup label="Simulados Assinantes" class="assinantes">
+                          <option value="12010" disabled="disabled">1º Semestre de 2010</option>
+                          <option value="22010" disabled="disabled">2º Semestre de 2010</option>
+                          <option value="12011" disabled="disabled">1º Semestre de 2011</option>
+                          <option value="22011" disabled="disabled">2º Semestre de 2011</option>
+                          <option value="12012" disabled="disabled">1º Semestre de 2012</option>
+                          <option value="22012" disabled="disabled">2º Semestre de 2012</option>
+                          <option value="12013" disabled="disabled">1º Semestre de 2013</option>
+                          <option value="22013" disabled="disabled">2º Semestre de 2013</option>
+                          <option value="12014" disabled="disabled">1º Semestre de 2014</option>
+                          <option value="22014" disabled="disabled">2º Semestre de 2014</option>
+                          <option value="12015" disabled="disabled">1º Semestre de 2015</option>
+                          <option value="22015" disabled="disabled">2º Semestre de 2015</option>
+                          <option value="12016" disabled="disabled">1º Semestre de 2016</option>
+                          <option value="22016" disabled="disabled">2º Semestre de 2016</option>
+                          <option value="12017" disabled="disabled">1º Semestre de 2017</option>
+                          <option value="22017" disabled="disabled">2º Semestre de 2017</option>
+                          <option value="12018" disabled="disabled">1º Semestre de 2018</option>
+                          <option value="22018" disabled="disabled">2º Semestre de 2018</option>
+                          <option value="12019" disabled="disabled">1º Semestre de 2019</option>
+                          <option value="22019" disabled="disabled">2º Semestre de 2019</option>
+                          <option value="12020" disabled="disabled">1º Semestre de 2020</option>
+                          <option value="22022" disabled="disabled">2º Semestre de 2022</option>                          
+                          <option value="12023" disabled="disabled">1º Semestre de 2023</option>                          
+                         </optgroup>                                                      
+                       </select>
+
+                </div>            
+                <input type="submit" class="btn w-100 btn-primary my-3 btn-lg" value="Iniciar simulado" />            
+            </form> 
+        </div>
+    </div>  
+    <hr class="my-4" />    
     <br />
-
 </div>    
-<br />
 
 {% endblock %}
