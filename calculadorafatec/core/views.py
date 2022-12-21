@@ -14,6 +14,7 @@ from django.core.paginator import (
 from django.core import serializers
 import json
 
+
 def home(request):
     #fatecs = []
     fatecs = ['Fatec Sorocaba', 'Fatec São Roque' , 'Fatec São Paulo', 'Fatec Itu', 'Fatec Carapicuíba']
@@ -47,6 +48,7 @@ def detalhes_fatec(request, slug):
     fatec.imagem = f'{settings.MEDIA_URL}{fatec.imagem}'
     cursos = Curso.objects.filter(fatec__id=fatec.id)
     socialmedia =  Social.objects.filter(Fatec_id=fatec.id)
+    fb = socialmedia.facebooks()
     contatos =  Contact.objects.filter(Fatec_id=fatec.id)
     resultados_cursos = ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre')
     #resultados_cursos2 = ResultadoVestibularFatec2.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre').values_list('cod_curso', 'periodo')
@@ -68,9 +70,7 @@ def detalhes_fatec(request, slug):
                 "semestre":resultado.semestre,
                 "qtde_vagas": resultado.qtde_vagas,
                 "qtde_inscrito": resultado.qtde_inscrito,
-                "demanda": resultado.demanda,
-                "nota_corte":resultado.nota_corte,
-                "nota_maxima":resultado.nota_maxima                
+                "demanda": resultado.demanda,            
             }
             demanda[curso_periodo_key].append(r)
     
@@ -80,7 +80,7 @@ def detalhes_fatec(request, slug):
         
     return render(request,'detalhes-fatec.html', {
         'detalhe': fatec,'cursos':cursos, 
-        'redessociais': socialmedia, 'contatos': contatos, 
+        'redessociais': socialmedia, 'facebook':fb, 'contatos': contatos, 
          "demandasCursos":  demanda
         })   
 
@@ -110,13 +110,13 @@ def materias_prova_peso2_com_js(request):
 
 
 def materias_prova_peso2(request):
+    default_items_per_page = 5
     default_page = 1
-    quantidade_ = request.GET.get('quantidades_cursos')
-  
-    if quantidade_:
-        default_page = quantidade_
-
-    page = request.GET.get('page', default_page)
+    
+    try:
+        page = request.GET.get('page', default_page)    
+    except:
+        page = 1
 
     eixo_filtrar = request.GET.get('eixo-texnologico')
     nome_curso_filtrar = request.GET.get('nome-curso')
@@ -129,16 +129,22 @@ def materias_prova_peso2(request):
         eixo_filtrar = 0
     
     if nome_curso_filtrar:
+        #cursos = cursos.filter(curso__unaccent__icontains=nome_curso_filtrar) precisa usar o postgress https://docs.djangoproject.com/en/4.1/ref/contrib/postgres/lookups/
         cursos = cursos.filter(curso__icontains = nome_curso_filtrar)   
     else:
         nome_curso_filtrar = ""
 
     eixo_tecnologicos = EixoTecnologico.objects.all()    
 
-    # Paginate items
-    items_per_page = 2
+    # Paginate items    
+    try:
+        items_per_page = request.GET.get('quantidades_cursos', default_items_per_page)    
+    except:
+        items_per_page = 5    
+    #items_per_page = request.GET.get('quantidades_cursos') if request.GET.get('quantidades_cursos') else 2    
+    
     paginator = Paginator(cursos, items_per_page)  
-
+    
     try:
         items_cursos_page = paginator.page(page)
     except PageNotAnInteger:
@@ -147,7 +153,8 @@ def materias_prova_peso2(request):
         items_cursos_page = paginator.page(paginator.num_pages)          
 
     # Provide filtered, paginated library items
-    return render(request,'materias-peso2.html',{'cursos':cursos, 'eixo_tecnologicos':eixo_tecnologicos,'items_cursos_page':items_cursos_page, 'pesquisa_nome_curso':nome_curso_filtrar, 'pesquisa_eixo_tecnologico': int(eixo_filtrar) })
+    
+    return render(request,'materias-peso2.html',{'cursos':cursos, 'eixo_tecnologicos':eixo_tecnologicos,'items_cursos_page':items_cursos_page, 'pesquisa_nome_curso':nome_curso_filtrar, 'pesquisa_eixo_tecnologico': int(eixo_filtrar), 'items_per_page':int(items_per_page)  })
 
 
 def contato(request):

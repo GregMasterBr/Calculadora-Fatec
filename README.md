@@ -13,14 +13,16 @@ A versão desenvolvida em **PHP** pode ser vista em: <https://calculadorafatec.g
     - [x] funcionalidade da lógica de cálculo via JS  
 - [x] Página matérias de peso 2  
     - [x] Listagem das matérias de peso 2 por curso  
-    - [x] Filtro de pesquisa por nome do curso  
+    - [x] Filtro de pesquisa por nome do curso 
     - [x] Filtro de pesquisa por eixo tecnologico  
-    [/] Criar o filtro de quantos itens será exibido na tabela  
+    - [x] Criar o filtro de quantos itens serão exibidos na tabela  
+        - [x] Lógica de onchange com o JS para fazer o fetch (itens-exibidos-na-tabela) e repassando para o python. O ciclo acontece mas o template não é atualizado. Desta maneira, é forçao um submit do form.
     - [x] Mecanimo de paginação dos resultados  
-    [/] Lógica para filtrar itens do pesquise por nome curso sem considerar a acentuação e capslock  
+    - [x] Lógica para filtrar itens do pesquise por nome curso sem considerar a acentuação e capslock  (implementação unaccent lookup - precisa configuração e uso do postgres)
 - [x] Página escolha da Instituição       
     - [x] Lógica para buscar e rederizar do ID para o Slug  
 - [x] Página Detalhes Instituição  
+    - [ ] Cadastrar informações da instituição  no BD
     - [x] Trazer as listas de cursos ofertados na unidade    
     - [x] Trazer todos os endereços sociais (facebook, ...)  
     - [x] Trazer todos as formas de contato (email, telefone e whatsapp)      
@@ -31,13 +33,14 @@ A versão desenvolvida em **PHP** pode ser vista em: <https://calculadorafatec.g
     - [x] Lógica para buscar e rederizar do ID para o Slug   
 [/] Página Detalhes Curso  
     - [x] Adicionado os campos na model  
-    - [ ] Cadastrar informações do curso  
+    - [ ] Cadastrar informações do curso  no BD
     - [x] Detalhes e informações sobre o curso  
     - [ ]  Trazer relação de cursos semelhantes que o aluno possa se interessar  
-- [x] Página nota de corte  
-    - [x] Página de seleção de dados - Consulta por Fatec e Fatec Curso. Lógica atribuída ao JS e rota no python
-    - [x] Página de detalhes dos dados considerando filtro enviado
+- [x] Página nota de corte    
+    - [x] Página de seleção de dados - Consulta por Fatec e Fatec Curso. Lógica atribuída ao JS e rota no python  
+    - [x] Página de detalhes dos dados considerando filtro enviado  
 - [ ] Página de simulados   
+    - [ ] Criar uma nova app
 
 ***
 <br />

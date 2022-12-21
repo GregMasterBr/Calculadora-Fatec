@@ -18,7 +18,7 @@
     
 <div class="container">    
     <div class="py-5 text-center text-light ">
-        <img class="img-fluid d-block mx-auto mb-4" width="500px" src="{{detalhe.imagem}}" alt=""  title="Fachada da {{detalhe.fatec}}"/>
+        <img class="img-fluid d-block mx-auto mb-4" width="500px" src="{{  detalhe.imagem  }}" alt=""  title="Fachada da {{detalhe.fatec}}"/>
         <h1>Seja bem-vindo(a) na - Fatec {{detalhe.fatec}}<br />{{detalhe.institucional}}</h1>
         <p class="lead">
             Consulte informações pertinentes a instituição desejada. Tire suas dúvidas e faça uma escolha assertiva.
@@ -27,12 +27,16 @@
     <hr class="my-4" />
     <div class="row">    
         <div class="col-12 bg-light m-3 p-5 ">
-            <div class="fb-page" data-href="https://www.facebook.com/fatecsorocaba/" data-tabs="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>
+            {% if facebook  %}
+                {% for fb in facebook %}
+                    <div class="fb-page" data-href="{{ fb }}" data-tabs="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>
+                {% endfor %}
+            {% endif %}
             <address class="my-2"> 
-                <strong>Endereço:</strong> {{detalhe.endereco}}<br />
-                <strong>Cidade:</strong> {{detalhe.cidade}}/SP<br />
-                <strong>Região:</strong> {{detalhe.regiao}}<br />
-                Visualizar no <a href="{{detalhe.googlemaps}}" target="_blank">GoogleMaps</a><br />
+                <strong>Endereço:</strong> {{ detalhe.endereco }}<br />
+                <strong>Cidade:</strong> {{ detalhe.cidade }}/SP<br />
+                <strong>Região:</strong> {{ detalhe.regiao }}<br />
+                Visualizar no <a href="{{  detalhe.googlemaps  }}" target="_blank">GoogleMaps</a><br />
                 <a class="btn btn-outline-secondary my-2" href="#mapa-localizacao" role="button">Ver Mapa</a>
             </address>            
             <section class="my-1">

@@ -45,13 +45,14 @@
                     <div class="col-md">
                         <div class="">
                             <label for="quantidades_cursos" class="form-label text-white">Itens exibidos na tabela:</label>
-                            <select class="form-select" id="quantidades_cursos" aria-label="Floating label select example" name="quantidades_cursos">
-                              <option value="1" selected>1</option>
-                              <option value="5">5</option>                         
-                              <option value="10">10</option>
-                              <option value="50">50</option>
-                              <option value="75">75</option>
-                              <option value="100">100</option>
+                            <select class="form-select" id="quantidades_cursos" aria-label="Floating label select example" name="quantidades_cursos" onchange="this.form.submit();">
+                                <option value="1" {% if items_per_page == 1 %} selected {% endif %}>1</option>
+                                <option value="3" {% if items_per_page == 3 %} selected {% endif %}>3</option>    
+                                <option value="5" {% if items_per_page == 5 %} selected {% endif %}>5</option> 
+                                <option value="10" {% if items_per_page == 10 %} selected {% endif %}>10</option>
+                                <option value="50" {% if items_per_page == 50 %} selected {% endif %}>50</option>
+                                <option value="75" {% if items_per_page == 75 %} selected {% endif %}>75</option>
+                                <option value="100" {% if items_per_page == 100 %} selected {% endif %}>100</option>
                             </select>
                         </div>                    
                     </div>                    
@@ -122,4 +123,7 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
+<script src="{% static 'core/js/itens-exibidos-na-tabela.js' %}" ></script>
 {% endblock %}
