@@ -16,12 +16,12 @@
             Defina como deseja preparar o seu simulado para continuar o seus estudos.
         </p> 
         <div class="col-lg-6 mx-auto">
-            <form  action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+            <form  action="{% url 'teste-simulado' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
                 <div class="input-group input-group-lg my-3">
-                    <select class="form-select" id="fatecs" name="cod_curso" required="required">
+                    <select class="form-select" id="cod_curso" name="cod_curso" required="required">
                         <option selected value="0">Escolha o curso...</option>
                             {% for curso in cursos %}
-                                <option value="{{curso.id}}">{{curso}}</option>
+                                <option value="{{ curso.id }}" data-mat1="{{ curso.materia_1 }}" data-mat2="{{ curso.materia_2 }}" >{{curso}}</option>
                             {% empty %}
                                 <option value="0">Não tem nenhum curso disponível</option>                        
                             {% endfor %}                  
@@ -29,39 +29,26 @@
                 </div>    
                 <div class="input-group input-group-lg my-3">
                     <select class="form-select" name="prova_vestibular" id="prova_vestibular" required="required">
-                        <option value="0">Selecione a prova do vestibular</option>
-
-                        <optgroup label="Simulados Gratuitos">
-                          <option value="12009">1º Semestre - 2009</option>
-                          <option value="22009">2º Semestre - 2009</option>                          
-                        </optgroup>
-                         <optgroup label="Simulados Assinantes" class="assinantes">
-                          <option value="12010" disabled="disabled">1º Semestre de 2010</option>
-                          <option value="22010" disabled="disabled">2º Semestre de 2010</option>
-                          <option value="12011" disabled="disabled">1º Semestre de 2011</option>
-                          <option value="22011" disabled="disabled">2º Semestre de 2011</option>
-                          <option value="12012" disabled="disabled">1º Semestre de 2012</option>
-                          <option value="22012" disabled="disabled">2º Semestre de 2012</option>
-                          <option value="12013" disabled="disabled">1º Semestre de 2013</option>
-                          <option value="22013" disabled="disabled">2º Semestre de 2013</option>
-                          <option value="12014" disabled="disabled">1º Semestre de 2014</option>
-                          <option value="22014" disabled="disabled">2º Semestre de 2014</option>
-                          <option value="12015" disabled="disabled">1º Semestre de 2015</option>
-                          <option value="22015" disabled="disabled">2º Semestre de 2015</option>
-                          <option value="12016" disabled="disabled">1º Semestre de 2016</option>
-                          <option value="22016" disabled="disabled">2º Semestre de 2016</option>
-                          <option value="12017" disabled="disabled">1º Semestre de 2017</option>
-                          <option value="22017" disabled="disabled">2º Semestre de 2017</option>
-                          <option value="12018" disabled="disabled">1º Semestre de 2018</option>
-                          <option value="22018" disabled="disabled">2º Semestre de 2018</option>
-                          <option value="12019" disabled="disabled">1º Semestre de 2019</option>
-                          <option value="22019" disabled="disabled">2º Semestre de 2019</option>
-                          <option value="12020" disabled="disabled">1º Semestre de 2020</option>
-                          <option value="22022" disabled="disabled">2º Semestre de 2022</option>                          
-                          <option value="12023" disabled="disabled">1º Semestre de 2023</option>                          
-                         </optgroup>                                                      
-                       </select>
-
+                        <option value="0">Selecione a edição do vestibular</option>
+                        {% for p in processos_seletivos %} 
+                            <option data-ano="{{ p.ano }}" data-semestre="{{ p.semestre }}" value="{{ p.semestre }}{{ p.ano }}" {% if not p.simulado_gratuito %} disabled {% endif %}>{{ p.edicao }}</option>
+                         {% empty %}
+                         <option value="0">Não tem processos seletivos disponíveis</option>                        
+                        {% endfor %}                                                                              
+                    </select>
+                    {% comment "Não consegui implementar com o a estrutura do optgroup" %}
+                        <select class="form-select" >
+                            <option value="0">Selecione a prova do vestibular</option>
+                            <optgroup label="Simulados Gratuitos">
+                                <option value="12009">1º Semestre - 2009</option>
+                                ...                   
+                            </optgroup>
+                            <optgroup label="Simulados Assinantes" class="assinantes">
+                                ...
+                                <option value="12023" disabled="disabled">1º Semestre de 2023</option>                          
+                            </optgroup>                                                      
+                        </select>
+                    {% endcomment %}                    
                 </div>            
                 <input type="submit" class="btn w-100 btn-primary my-3 btn-lg" value="Iniciar simulado" />            
             </form> 
