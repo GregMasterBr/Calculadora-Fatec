@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block 'head' %} 
+    <meta name="description" content="Calculadora Fatec é uma ferramenta para auxiliar candidatos a ingressarem nas instituições Fatecs. Armazenamos todas as demandas e notas de cortes dos vestibulares e expertize para conduzir um melhor resultado para o vestibular. Por isso, Calculadora Fatec, quem usa, sabe. Assine agora o serviço e se aproxime do seu objetivo em ser um aluno da Fatec. VEM PRA FATEC! Os candidatos podem usar a ferramenta para Calcular a Nota do Vestibular, Consultar os Guias de Fatecs e Cursos e prepare-se melhor para o exame do Vestibular.">
+{% endblock %}
+
+{% block 'title' %}Simulado {{ prova_vestibular_edicao }} - {{ curso }} -  Calculadora Fatec{% endblock %}
+
+{% block 'body' %}
+<div class="container">   
+    <div class="px-4 py-5 my-5  bg-body rounded shadow-sm ">
+        <h1 class="display-5 fw-bold text-dark text-center">Simulado escolhido {{ prova_vestibular_edicao }}</h1>      
+        <h2>Parâmetros</h2>
+        <ul>
+            <li>Semestre: {{ prova_vestibular_edicao.semestre }}</li>
+            <li>Ano: {{ prova_vestibular_edicao.ano }}</li>
+            <li>Prova: <a href="{{ prova_vestibular_edicao.link_prova }}" target="_blank" >Acessar</a></li>
+            <li>Gabarito: <a href="{{ prova_vestibular_edicao.gabarito.url }}" target="_blank" >Acessar</a></li>
+
+
+            <li>Curso: {{ curso }} -  {{ curso.eixo_tecnologico }} </li>
+
+            <li>1ª Matéria de peso 2: {{ curso.get_materia_1_display|title}}</li>
+            <li>2º Matéria de peso 2: {{ curso.get_materia_2_display|title }}</li>
+        </ul>
+      
+    </div>
+    <hr class="my-4" />    
+    <br />    
+</div>
+{% endblock %}

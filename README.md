@@ -100,3 +100,6 @@ Is there a way to have this result?
 SOLVE:
 POST MIGRATION
 https://stackoverflow.com/questions/31698103/how-do-i-execute-raw-sql-in-a-django-migration
+
+
+FIRST(), EXISTS(), GET() e GET_OBJECT_OR_404().

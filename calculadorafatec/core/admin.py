@@ -28,12 +28,12 @@ class FatecModelAdmin(admin.ModelAdmin):
 
     def website_link(self, obj):
         link = obj.social_set.sites().first() if obj.social_set.sites() else ""
-        return format_html('<a href="{0}" target="blank">{0}</a>', link)
+        return format_html('<a href="{0}" target="_blank">{0}</a>', link)
     
     website_link.short_description = 'website'
 
     def imagem_fachada(self,obj):
-        return format_html('<a href="{0}{1}" target="blank"><img width="60px" src="{0}{1}" alt="foto da fachada" /></a>', settings.MEDIA_URL,obj.imagem)
+        return format_html('<a href="{0}{1}" target="_blank"><img width="60px" src="{0}{1}" alt="foto da fachada" /></a>', settings.MEDIA_URL,obj.imagem)
     
     imagem_fachada.allow_tags = True
     imagem_fachada.short_description = 'fachada'

@@ -31,7 +31,7 @@
                     <select class="form-select" name="prova_vestibular" id="prova_vestibular" required="required">
                         <option value="0">Selecione a edição do vestibular</option>
                         {% for p in processos_seletivos %} 
-                            <option data-ano="{{ p.ano }}" data-semestre="{{ p.semestre }}" value="{{ p.semestre }}{{ p.ano }}" {% if not p.simulado_gratuito %} disabled {% endif %}>{{ p.edicao }}</option>
+                            <option data-ano="{{ p.ano }}" data-semestre="{{ p.semestre }}" value="{{ p.semestre }}-{{ p.ano }}" {% if not p.simulado_gratuito %} disabled {% endif %}>{{ p.edicao }}</option>
                          {% empty %}
                          <option value="0">Não tem processos seletivos disponíveis</option>                        
                         {% endfor %}                                                                              

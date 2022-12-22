@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from calculadorafatec.core.models import Curso
 from calculadorafatec.simulados.models import ProcessoSeletivoVestibularFatec
@@ -13,9 +13,12 @@ def home_simulados(request):
 
 def teste_simulado(request):
     curso_id = request.POST.get('cod_curso')
-    atrris = request.POST.get('cod_curso')
-    curso = request.POST['cod_curso']
+    prova_vestibular_edicao_slug = request.POST.get('prova_vestibular')
+    prova_vestibular_edicao = get_object_or_404(ProcessoSeletivoVestibularFatec, slug=prova_vestibular_edicao_slug) 
+    #curso1 = Curso.objects.filter(id=curso_id).first()
+    #curso2 = Curso.objects.get(id=curso_id)
+    curso = get_object_or_404(Curso, id=curso_id)  
 
-    print(curso)
     
-    return HttpResponse(f'Teste Simulado { curso_id } { curso }' )
+    return render(request,'simulado.html',{'curso':curso, 'prova_vestibular_edicao': prova_vestibular_edicao})
+

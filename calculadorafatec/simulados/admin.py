@@ -17,7 +17,7 @@ class ProcessoSeletivoVestibularFatecModelAdmin(admin.ModelAdmin):
     edicao_.short_description = 'edição'      
 
     def prova_link(self, obj):        
-        return format_html('<a href="{0}" target="blank">{0}</a>', obj.link_prova)   
+        return format_html('<a href="{0}" target="_blank">{0}</a>', obj.link_prova)   
     
     prova_link.short_description = 'Prova'      
 

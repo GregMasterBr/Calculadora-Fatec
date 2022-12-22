@@ -45,13 +45,12 @@ def busca_slug_fatec(request):
 
 def detalhes_fatec(request, slug):
     fatec = get_object_or_404(Fatec, slug=slug)   
-    fatec.imagem = f'{settings.MEDIA_URL}{fatec.imagem}'
+    #fatec.imagem = f'{settings.MEDIA_URL}{fatec.imagem}' Esse item eu forçava o uso do midia. Porém o tipo do campo tem um atributo . url que fornece o path completo.
     cursos = Curso.objects.filter(fatec__id=fatec.id)
     socialmedia =  Social.objects.filter(Fatec_id=fatec.id)
     fb = socialmedia.facebooks()
     contatos =  Contact.objects.filter(Fatec_id=fatec.id)
     resultados_cursos = ResultadoVestibularFatec.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre')
-    #resultados_cursos2 = ResultadoVestibularFatec2.objects.filter(cod_instituicao=fatec.id).order_by('-ano', '-semestre').values_list('cod_curso', 'periodo')
     resultados_cursos2 = ResultadoVestibularFatec2.objects.filter(cod_instituicao=fatec.id).order_by('cod_curso_id','periodo','-ano', '-semestre')
     demanda = {}
     for resultado in resultados_cursos2:        
