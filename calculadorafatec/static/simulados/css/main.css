@@ -1,0 +1,156 @@
+html {
+    height: 100%;
+  }   
+  body {
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
+  }                 
+  .secao-perguntas{
+        margin: 10px;
+        padding: 20px;
+  }
+  .controls-btn .btn{
+      width: 45%;
+      margin: 2%;
+
+  }
+  .not-response li{
+      margin: 3px;        
+  }            
+  @media only screen and (max-width: 600px) {
+      .controls-btn .btn {
+          /*width: 98%;*/
+          font-size: 25px;
+          margin: 5% 2%;
+      }
+
+  }
+  .footer {
+      position: absolute;
+      width: 100%;
+      height: 60px;
+      background-color: #942019 ;  
+      background-color: #f5f5f5;
+      color:#fff; 
+      color:#777;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      padding: 1rem;             
+  }    
+    
+    /*Heading do Titulo da Matéria*/
+
+    .destaque-materia{
+        color: #fff;
+        background-color: blueviolet;
+    }
+	/*Onde mostra o contador de questões*/
+    .badge-simulado {
+      display: inline-block;
+      min-width: 10px;
+      padding: 9px 10px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #ffffff;
+      line-height: 1;
+      vertical-align: baseline;
+      white-space: nowrap;
+      text-align: center;
+      background-color: #777777;
+    }      
+    /*EXPLICAR ONDE USA*/
+    .linha-vertical {
+      height: 10px;/*Altura da linha*/
+      border-left: 2px solid !important; /* Adiciona borda esquerda na div como ser fosse uma linha.*/
+      display: inline-flex;
+      margin: 0;
+    }
+
+
+    .destaque_text{
+        background:yellow;  
+        margin: 2px;
+      }
+
+/*ORGANIZAÇÃO DAS ALTERNATIVAS*/
+.box-alternativas{
+    background: #ddd;
+    padding: 10px;
+}
+
+.alternativa{
+    margin: 5px 0px 5px -10px !important;
+    width: 25px;
+    height: 25px;  
+}     
+
+
+      /*RADIOBUTTON*/
+/* Customize the label (the organizador-alternativa) */
+.organizador-alternativa {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 0px;
+    cursor: pointer;
+    font-size: 13px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default radio button */
+  .organizador-alternativa input {
+    position: absolute;
+    opacity: 0;
+  }
+  
+  /* Create a custom radio button */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .organizador-alternativa:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the radio button is checked, add a blue background */
+  .organizador-alternativa input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  /* Create the indicator (the dot/circle - hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the indicator (dot/circle) when checked */
+  .organizador-alternativa input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the indicator (dot/circle) */
+  .organizador-alternativa .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+  }
+  .organizador-alternativa b, .organizador-alternativa span:first{
+    vertical-align: inherit;
+  }
+  

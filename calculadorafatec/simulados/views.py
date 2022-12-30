@@ -22,3 +22,10 @@ def teste_simulado(request):
     
     return render(request,'simulado.html',{'curso':curso, 'prova_vestibular_edicao': prova_vestibular_edicao})
 
+
+def simulado2(request):
+    fruits = ['Apple', 'Banana', 'Cherry', 'Kiwi', 'Orange']
+    return render(request,'simulado2.html',{'total_questoes':range(1,55), "fruits": fruits})
+
+def gabarito(request):
+    return render(request,'gabarito.html',{})

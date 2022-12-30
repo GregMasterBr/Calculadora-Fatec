@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %} 
+    <meta name="description" content="Simulado">
+    <link href="{% static 'simulados/css/main.css' %}" rel="stylesheet" />
+
+{% endblock %}
+
+{% block 'title' %}Realizar o simulado do 1º semestre de 2010 - Análise e Desenvolvimento de Sistemas{% endblock %}
+
+{% block 'body' %}
+<div class="container-fluid">  
+    <div class="page-header">
+        <h1 class="text-center ">Simulado do Vestibular<span class="xs-hidden"> Fatec </span>do 1º semestre de 2010</h1>
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text">Navegador de Questão: </span>
+        <input type="number"  min="1" max="54" class="form-control" placeholder="Informe o número da questão" id="navegador_questao" />
+    </div>
+    <div class="alert alert-info">
+        <div class="container">
+            <h2>clique sobre o número para navegar na questão</h2>            
+            <ul class="nav nav-pills not-response" >
+                {% for i in total_questoes %}
+                <li>
+                    <a href="#" class="btn btn-danger" ><span class="badge">{{ i }}</span></a>
+                </li>  
+                {% empty %}
+                    <li>Nenhuma questão foi localizada</li>
+                {% endfor %}                
+            
+            </ul>             
+        </div>
+    </div>    
+    <div class="prova" >
+        <div class="quadro-perguntas">
+            <h2 class="text-center destaque-materia py-2" style="background:blueviolet;">Matemática<span class="ms-2 badge-simulado badge text-bg-info">1/54</span></h2>
+            <p class="lead text-justify" ><b>1)</b>
+                PERGUNTA BLABLABLA</p>                
+
+                <div class="col-md-12 col-xs-12 col-sm-12 box-alternativas px-4 py-5 my-5  bg-body rounded shadow-sm ">
+                    <form class="opc-alternativas">
+                        <label class="organizador-alternativa">
+                            <input type="radio" name="alternativa" value="A" class="alternativa" checked="checked" />
+                            <b>A) </b><span>Alternativa A</span>
+                            <span class="checkmark"></span>
+                        </label><br />
+                        <label class="organizador-alternativa">
+                            <input type="radio" name="alternativa" value="B" class="alternativa" />
+                            <b>B) </b><span>Alternativa B</span>
+                            <span class="checkmark"></span>
+                        </label><br />
+                        <label class="organizador-alternativa">
+                            <input type="radio" name="alternativa" value="C" class="alternativa" />
+                            <b>C) </b><span>Alternativa C</span>
+                            <span class="checkmark"></span>
+                        </label><br>
+                        <label class="organizador-alternativa">
+                            <input type="radio" name="alternativa" value="D" class="alternativa" />
+                            <b>D) </b><span>Alternativa D</span>
+                            <span class="checkmark"></span>
+                        </label><br />
+                        <label class="organizador-alternativa">                            
+                            <input type="radio" name="alternativa" value="E" class="alternativa" />
+                            <b>E) </b><span>Alternativa E</span>
+                            <span class="checkmark"></span>
+                        </label>
+                    </form>
+                </div>            
+                               
+        </div>
+        <div class="controls-btn col-md-12 col-xs-12 col-sm-12">
+            <button {% if currentPage == 1 %} disabled {% endif %} onclick="goPreviousPage(currentPage-1);" class="btn btn-primary btn-lg  ">
+                &laquo; Anterior
+            </button>
+           
+            <button  {% if currentPage >= pageSize %} disabled {% endif %}  onclick="salvarResposta();goNextPage(currentPage+1);" class="btn btn-primary btn-lg" >
+                Próximo &raquo;
+            </button>
+        </div>
+    </div>
+
+   
+</div>
+{% endblock %}
