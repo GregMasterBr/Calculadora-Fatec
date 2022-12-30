@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from calculadorafatec.core.models import Curso
+from calculadorafatec.core.models import Curso, Disciplinas
 from calculadorafatec.simulados.models import ProcessoSeletivoVestibularFatec
 # Create your views here.
 
@@ -25,7 +25,8 @@ def teste_simulado(request):
 
 def simulado2(request):
     fruits = ['Apple', 'Banana', 'Cherry', 'Kiwi', 'Orange']
-    return render(request,'simulado2.html',{'total_questoes':range(1,55), "fruits": fruits})
+    disciplinas = Disciplinas.objects.all()
+    return render(request,'simulado2.html',{'total_questoes':range(1,55), "fruits": fruits,'disciplinas':disciplinas})
 
 def gabarito(request):
     return render(request,'gabarito.html',{})

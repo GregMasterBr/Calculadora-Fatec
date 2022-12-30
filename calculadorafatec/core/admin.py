@@ -1,7 +1,23 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django.conf import settings
-from calculadorafatec.core.models import Contact, Social, EixoTecnologico, Curso, Fatec, Regiao, ResultadoVestibularFatec,ResultadoVestibularFatec2
+from calculadorafatec.core.models import Contact, Social, EixoTecnologico, Disciplinas, Curso, Fatec, Regiao, ResultadoVestibularFatec,ResultadoVestibularFatec2
+
+class DisciplinasModelAdmin(admin.ModelAdmin):
+    list_display = ['disciplina','sigla','quantidade_questoes','cor_html', 'cor_html_div','obs',]
+    search_fields = ('disciplina',)
+
+    def cor_html(self, obj):
+        #return format_html('<a href="{0}" target="_blank">{0}</a>', link)
+        return format_html('<input type="color" name="favcolor" value="{0}">', obj.cor)
+    
+    cor_html.short_description = 'cor'
+    
+    def cor_html_div(self, obj):
+        #return format_html('<a href="{0}" target="_blank">{0}</a>', link)
+        return format_html('<div style="padding:0px 5px; display:flex;align-items: center; justify-content: center; width:52px; height:25px;color:#fff; background-color:{0}">{0}</div>', obj.cor)
+    
+    cor_html_div.short_description = 'hexa'
 
 class CursoModelAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('curso',)}
@@ -66,6 +82,7 @@ class ResultadoVestibularFatec2ModelAdmin(admin.ModelAdmin):
 admin.site.register(Fatec,FatecModelAdmin)
 admin.site.register(Regiao)
 admin.site.register(EixoTecnologico)
+admin.site.register(Disciplinas, DisciplinasModelAdmin)
 admin.site.register(Curso, CursoModelAdmin)
 admin.site.register(ResultadoVestibularFatec, ResultadoVestibularFatecModelAdmin)
 admin.site.register(ResultadoVestibularFatec2,ResultadoVestibularFatec2ModelAdmin)

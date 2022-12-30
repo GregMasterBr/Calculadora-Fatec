@@ -35,7 +35,11 @@
     </div>    
     <div class="prova" >
         <div class="quadro-perguntas">
-            <h2 class="text-center destaque-materia py-2" style="background:blueviolet;">Matemática<span class="ms-2 badge-simulado badge text-bg-info">1/54</span></h2>
+            {% for d in disciplinas %}
+                {% if d.disciplina|lower in "Raciocínio Lógico"|lower %}
+                    <h2 class="text-center destaque-materia py-2" style="background:{{d.cor}}">{{ d.disciplina }}<span class="ms-2 badge-simulado badge text-bg-info">1/54</span></h2>
+                {% endif %}
+            {% endfor %}
             <p class="lead text-justify" ><b>1)</b>
                 PERGUNTA BLABLABLA</p>                
 

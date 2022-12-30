@@ -12,6 +12,20 @@ class Regiao(models.Model):
     def __str__(self):
         return self.regiao
        
+class Disciplinas(models.Model):
+    disciplina = models.CharField(verbose_name ="Disciplina", max_length=20, blank=True, null=True,)
+    sigla = models.CharField(verbose_name ="Sigla",max_length=4, blank=True, null=True,)
+    cor = models.CharField(verbose_name ="Cor",max_length=7, blank=True, null=True,)
+    obs = models.TextField("Observação",  blank=True, null= True)
+    quantidade_questoes = models.PositiveIntegerField(verbose_name ="Quantidade de questões", blank=True, null= True, default=0) 
+
+    class Meta:
+        verbose_name_plural = 'Disciplinas da prova'
+        verbose_name = 'Diciplina da prova'
+        ordering = ('disciplina',)
+
+    def __str__(self):
+        return self.disciplina
 
 class EixoTecnologico(models.Model):
     eixo_tecnologico = models.CharField(max_length=100, blank=True)
@@ -25,6 +39,7 @@ class Curso(models.Model):
     eixo_tecnologico = models.ForeignKey(EixoTecnologico, blank=True, null=True, on_delete=models.SET_NULL)
     materia_1 = models.CharField('Materia peso 2 (1ª)', blank=True, max_length=4, choices=ChoicesDisciplinas.choices)
     materia_2 = models.CharField('Materia peso 2 (2ª)', blank=True, max_length=4, choices=ChoicesDisciplinas.choices)    
+    #materia_3 = models.ManyToManyField(Disciplinas, blank=True, null=True) - Criar relacionemento com a tabela Disciplinas    
     visao_geral = models.TextField("Visão geral",  blank=True, null= True)
     conteudo_estudo = models.TextField("O aluno estuda",  blank=True, null= True)
     profissional_faz = models.TextField("O profisisonal faz", blank=True, null= True)

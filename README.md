@@ -102,4 +102,7 @@ POST MIGRATION
 https://stackoverflow.com/questions/31698103/how-do-i-execute-raw-sql-in-a-django-migration
 
 
-FIRST(), EXISTS(), GET() e GET_OBJECT_OR_404().
+FIRST(), EXISTS(), GET() e GET_OBJECT_OR_404().  
+
+
+* https://django-smart-selects.readthedocs.io/en/latest/  
