@@ -1,0 +1,39 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+}
+
+body#body-pd{
+  background-image: url("../img/bkg-blackboard-math.jpg");
+  background-repeat: no-repeat;  
+  background-position: center;  
+  background-size: cover; 
+}
+.form-signin {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(242,242,242,0.8); 
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

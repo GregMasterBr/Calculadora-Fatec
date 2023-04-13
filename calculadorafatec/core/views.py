@@ -2,7 +2,8 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 #Django Messages - definida lá no settings - MESSAGES_TAG
-from django.contrib import messages
+from django.contrib import messages, auth
+from django.contrib.auth.models import User
 from django.contrib.messages import constants
 from calculadorafatec.core.models import Curso, Fatec, ResultadoVestibularFatec, ResultadoVestibularFatec2, EixoTecnologico, Social, Contact
 from django.conf import settings
@@ -13,6 +14,8 @@ from django.core.paginator import (
 )
 from django.core import serializers
 import json
+from django.contrib.auth.decorators import login_required
+
 
 
 def home(request):
@@ -159,13 +162,13 @@ def materias_prova_peso2(request):
 def contato(request):
     return redirect('https://wa.me/5515981057742')
 
-
+@login_required(redirect_field_name='', login_url="login")
 def nota_de_corte(request):
     fatecs = Fatec.objects.all()
     cursos = Curso.objects.filter(ativo=True)
     return render(request,'nota-de-corte.html',{'fatecs':fatecs, 'cursos':cursos})
 
-
+@login_required(redirect_field_name='', login_url="login")
 def detalhes_nota_de_corte(request):    
     fatec_id = request.POST.get('cod_fatec')
     if fatec_id == "0":
@@ -216,6 +219,24 @@ def busca_cursos_da_fatec(request):
     return JsonResponse(data)
     
 
+def login(request):
+    if request.method == "GET":
+        if request.user.is_authenticated:
+            return redirect(reverse('home'))       
+        return render(request,'registration/login.html' )                    
+    elif request.method =="POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = auth.authenticate(username=username, password=password)
+
+        if not user:
+            messages.add_message(request, constants.ERROR, 'Usuário inválido!')
+            return redirect(reverse('login'))        
+        auth.login(request,user)
+        #messages.add_message(request, constants.SUCCESS, 'Usuário logado com sucesso!')
+        return redirect(reverse('home'))
+
 def logout(request):
+    auth.logout(request)    
     request.session.flush()
-    return redirect(reverse('home'))    
+    return redirect(reverse('login'))
