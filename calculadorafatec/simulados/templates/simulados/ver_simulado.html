@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block 'body' %}
+<h2>{{ simulado.titulo }}</h2>
+<ul>
+  {% for q in simulado.questoes.all %}
+    <li>Q{{ q.numero }} - {{ q.enunciado|truncatechars:80 }}</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'simulados:start-simulado' simulado.id %}">Iniciar</a>
+{% endblock %}

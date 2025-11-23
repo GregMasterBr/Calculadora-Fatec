@@ -16,7 +16,7 @@
             Defina como deseja preparar o seu simulado para continuar o seus estudos.
         </p> 
         <div class="col-lg-6 mx-auto">
-            <form  action="{% url 'teste-simulado' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+            <form  action="{% url 'simulados:teste-simulado' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
                 <div class="input-group input-group-lg my-3">
                     <select class="form-select" id="cod_curso" name="cod_curso" required="required">
                         <option selected value="0">Escolha o curso...</option>

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block 'body' %}
+<h3>Questão {{ numero }} / {{ total }}</h3>
+<div>
+  <p>{{ questao.enunciado|safe }}</p>
+  {% if questao.imagem %}
+    <img src="{{ questao.imagem.url }}" alt="imagem da questão" style="max-width:400px;">
+  {% endif %}
+  <form id="responder" method="post" action="{% url 'simulados:responder-questao' tentativa.id %}">
+    {% csrf_token %}
+    <input type="hidden" name="questao_id" value="{{ questao.id }}">
+    {% for alt in alternativas %}
+      <div>
+        <label>
+          <input type="radio" name="alternativa_id" value="{{ alt.id }}"> {{ alt.letra }} - {{ alt.texto|safe }}
+        </label>
+      </div>
+    {% endfor %}
+    <button type="submit">Enviar e Avançar</button>
+  </form>
+</div>
+<script>
+document.getElementById('responder').addEventListener('submit', function(e){
+  e.preventDefault();
+  fetch(this.action, {
+    method: 'POST',
+    body: new FormData(this),
+    headers: {'X-CSRFToken': '{{ csrf_token }}'}
+  }).then(r=>r.json()).then(data=>{
+    if(data.next){ window.location.href = data.next; }
+    else if(data.final){ window.location.href = data.final; }
+  });
+});
+</script>
+{% endblock %}

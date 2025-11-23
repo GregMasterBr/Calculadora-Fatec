@@ -102,7 +102,6 @@ class Fatec(models.Model):
     #         self.slug = slugify(self.fatec)
     #    return super().save(*args, **kwargs)        
 
-
 class Contact(models.Model):
     EMAIL = 'E'
     PHONE = 'P'
@@ -158,7 +157,6 @@ class Social(models.Model):
     
     def __str__(self):
         return self.value  
-
 
 class ResultadoVestibularFatec(models.Model):
     cod_resultado_fatec = models.PositiveIntegerField(primary_key=True) 

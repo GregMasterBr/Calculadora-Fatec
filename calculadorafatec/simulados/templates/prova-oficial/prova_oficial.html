@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block 'body' %}
+<div class="container mt-4">
+
+    <h2 class="mb-3 text-center">
+        Prova Oficial – {{ processo.edicao }}
+    </h2>
+
+    {% if processo.prova %}
+    <p class="text-center">
+        <a href="{{ processo.prova.url }}" class="btn btn-primary" target="_blank">
+            Baixar PDF Oficial
+        </a>
+    </p>
+    {% endif %}
+
+    <hr>
+
+    {% for q in questoes %}
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h5><strong>Questão {{ q.numero }}</strong></h5>
+
+            <p>{{ q.enunciado|linebreaks }}</p>
+
+            {% if q.imagem %}
+                <img src="{{ q.imagem.url }}" class="img-fluid mb-3">
+            {% endif %}
+
+            <ul class="list-group">
+                {% for alt in q.alternativas.all %}
+                    <li class="list-group-item">
+                        <strong>{{ alt.letra }}.</strong> {{ alt.texto }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock %}

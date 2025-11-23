@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block 'body' %}
+<h2>Resultado</h2>
+<p>Nota: {{ tentativa.nota_final }}%</p>
+<p>Tempo: {{ tentativa.tempo_segundos }} segundos</p>
+<ul>
+  {% for r in tentativa.respostas.all %}
+    <li>Q{{ r.questao.numero }} - sua: {{ r.alternativa_marcada }} - correta: {{ r.questao.alternativas.filter(correta=True).first }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

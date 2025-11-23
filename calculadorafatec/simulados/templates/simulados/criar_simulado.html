@@ -1,0 +1,17 @@
+
+
+{% extends "base.html" %}
+{% block 'body' %}
+<h2>Criar Simulado Personalizado</h2>
+<form method="post">{% csrf_token %}
+  <label>Título</label><br>
+  <input type="text" name="titulo"><br><br>
+  <label>Questões (segure ctrl/command para selecionar várias)</label><br>
+  <select name="questoes" multiple size="10">
+    {% for q in disciplinas %}
+      <option value="{{ q.id }}">{{ q }}</option>
+    {% endfor %}
+  </select><br><br>
+  <button type="submit">Criar</button>
+</form>
+{% endblock %}
