@@ -1,0 +1,49 @@
+{% extends 'base-login.html' %}
+{% load static%}
+
+{% block 'head' %} 
+    <meta name="description" content="WEC - Optical Cable - Fios e Cabos Especiais" />
+    <meta name="keywords" content="HTML, CSS, JavaScript" />
+    <link href="{% static '/css/login.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block 'title' %}Login | WEC Cabos{% endblock %}
+
+{% block 'body' %}
+<div class="container">
+    {% if messages %}
+    <br/>
+    {% for message in messages %}
+        <div class="alert {{message.tags}}" role="alert">
+            {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>                              
+        </div>
+    {% endfor %}
+  {% endif %}      
+    <main class="form-signin w-100 m-auto">
+        <div class="col  col-lg-6" >
+            <div class="p-1 p-md-3 ">
+                <div class="d-flex justify-content-center">
+                    <img src="{% static '/core/img/calculadora2v.png' %}" width="150px" class="mb-4" />
+                </div>
+                <form  action="{% url 'login' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}                
+                    <div class="input-group input-group-lg my-3">
+                        <input type="text" class="form-control rounded-left" name="username" placeholder="Usuário" required="required" />
+                    </div>
+                    <div class="input-group input-group-lg my-3">
+                        <input type="password" class="form-control rounded-left" autocomplete="senha atual" name="password" placeholder="Senha" required="required" />
+                    </div>
+                    <div class="checkbox mb-3">
+                        <label>
+                          <input type="checkbox" value="remember-me"> Lembrar-me
+                        </label>
+                      </div>
+                    <div class="d-grid gap-2  ">
+                        <button type="submit" class="btn btn-primary btn-lg rounded p-3 mt-3">Entrar no sistema</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main> 
+</div>    
+{% endblock %}
