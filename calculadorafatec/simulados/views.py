@@ -179,13 +179,13 @@ def simulado_oficial(request, slug):
     )
 
 
-
+@login_required
 # Permite que o usuário escolha quantas questões quer por disciplina.
 def simulado_tematico_form(request):
     disciplinas = Disciplinas.objects.all()
     return render(request, "prova-oficial/simulado_tematico_form.html", {"disciplinas": disciplinas})
 
-
+@login_required
 def simulado_tematico_gerar(request):
     if request.method != "POST":
         return redirect("simulados:simulado-tematico-form")
@@ -194,8 +194,8 @@ def simulado_tematico_gerar(request):
     descricao = request.POST.get("descricao")
 
     simulado = SimuladoPersonalizado.objects.create(
-        user=request.user,
-        titulo=titulo,
+        user=request.user,        
+        titulo = titulo or f"Simulado Temático de {request.user}",
         descricao=descricao
     )
 
@@ -208,6 +208,12 @@ def simulado_tematico_gerar(request):
             questoes_filtradas = list(
                 Questao.objects.filter(disciplina_id=disciplina_id)
             )
+            if not questoes_filtradas:
+                continue            
+            
+            quantidade = min(quantidade, len(questoes_filtradas))
+            if quantidade == 0:
+                continue
 
             escolhidas = random.sample(questoes_filtradas, min(quantidade, len(questoes_filtradas)))
             simulado.questoes.add(*escolhidas)
@@ -217,6 +223,7 @@ def simulado_tematico_gerar(request):
 
     return redirect("simulados:simulado-tematico-resolver", simulado.id)
 
+@login_required
 def simulado_tematico_resolver(request, simulado_id):
     simulado = get_object_or_404(SimuladoPersonalizado, id=simulado_id)
     questoes = simulado.questoes.all()
