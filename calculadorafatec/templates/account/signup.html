@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block 'body' %}
+<h2>Criar Conta</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{ form.email.label_tag }}  
+    {{ form.email }}
+
+    {{ form.password1.label_tag }}
+    {{ form.password1 }}
+
+    {{ form.password2.label_tag }}
+    {{ form.password2 }}
+
+    {{ form.cpf.label_tag }}
+    {{ form.cpf }}
+
+    {{ form.avatar.label_tag }}
+    {{ form.avatar }}
+
+    <button type="submit">Cadastrar</button>
+</form>
+
+{% endblock %}

@@ -33,8 +33,11 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 DEFAULT_FROM_EMAIL='calculadorafatec+suporte@gmail.com'
 
-# Application definition
+#AUTH_USER_MODEL = "auth.User"
+AUTH_USER_MODEL = "accounts.User"
 
+
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.messages',
     'calculadorafatec.core',
+    'calculadorafatec.accounts',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -179,6 +183,27 @@ MESSAGE_TAGS = {
 #Email Configuration
 EMAIL_BACKEND= 'django.core.mail.backends.console.EmailBackend'
 
+ACCOUNT_FORMS = {
+    "signup": "calculadorafatec.accounts.forms.CustomSignupForm"
+}
 
-LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "/"  # new
+ACCOUNT_USER_MODEL_USERNAME_FIELD = "username"
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"  # usuário pode logar por email OU username
+ACCOUNT_SIGNUP_FIELDS = ["username", "first_name", "last_name", "email"]
+
+
+#ACCOUNT_LOGIN_METHODS = {"email","username"}
+
+# ACCOUNT_SIGNUP_FIELDS = [
+#     "email*",
+#     "password1*",
+#     "password2*",
+# ]
+
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# ACCOUNT_LOGOUT_ON_GET = True
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
